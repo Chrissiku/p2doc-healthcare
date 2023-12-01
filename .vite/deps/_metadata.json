@@ -1,0 +1,32 @@
+{
+  "hash": "51d059fa",
+  "browserHash": "20839851",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "7682814f",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "9583295d",
+      "needsInterop": true
+    },
+    "@web5/api/browser": {
+      "src": "../../node_modules/@web5/api/dist/browser.mjs",
+      "file": "@web5_api_browser.js",
+      "fileHash": "1524efd7",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-PBJJPIPO": {
+      "file": "chunk-PBJJPIPO.js"
+    },
+    "chunk-Y4MX6R6N": {
+      "file": "chunk-Y4MX6R6N.js"
+    }
+  }
+}
