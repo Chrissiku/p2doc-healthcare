@@ -8,7 +8,7 @@ export default {
     colors: {
       'og-blue': '#41cbe2',
       'light-dark': '#585858',
-      'light-pink': '#F39F9F'
+      'light-pink': '#F39F9F',
     },
     extend: {},
   },
