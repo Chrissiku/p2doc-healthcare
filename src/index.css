@@ -6,8 +6,4 @@
   body {
     @apply font-poppins;
   }
-
-  .service-title {
-    padding: 0 5rem;
-  }
 }
