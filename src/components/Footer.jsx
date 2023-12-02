@@ -3,9 +3,9 @@ import logo from '/assets/logo-black.svg'
 
 const Footer = () => {
     return (
-        <>
-        <div className='bg-og-blue flex justify-around p-5 font-poppins text-[#333333]'>
-            <div>
+        <div className='bg-og-blue py-[40px] text-[#333333] text-base'>
+        <div className='flex gap-[102px] font-poppins'>
+            <div className='ml-[129px]'>
             <img className='mb-5' src={logo} alt="Logo in black" />
             <p>Leading the Way in Medical<br />
                 Execellence, Trusted Care.</p>
@@ -23,7 +23,9 @@ const Footer = () => {
                 <li>Email: email@p2doc.com</li>
             </ul>
             </div>
-        </>
+            <hr className='border border-[#E2E2E2] mt-[82px] ml-[129px]'/>
+            <p className='ml-[129px] mt-[70px]'>© 2023 P2Doc Healthcare. All Rights Reserved </p>
+        </div>
     )
 }
 
