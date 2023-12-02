@@ -23,8 +23,8 @@ const Footer = () => {
                 <li>Email: email@p2doc.com</li>
             </ul>
             </div>
-            <hr className='border border-[#E2E2E2] mt-[82px] ml-[129px]'/>
-            <p className='ml-[129px] mt-[70px]'>© 2023 P2Doc Healthcare. All Rights Reserved </p>
+            <hr className='border border-[#E2E2E2] mt-[40px] ml-[129px]'/>
+            <p className='ml-[129px] mt-[40px]'>© 2023 P2Doc Healthcare. All Rights Reserved </p>
         </div>
     )
 }
