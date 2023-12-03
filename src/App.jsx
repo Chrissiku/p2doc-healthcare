@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Web5Context } from "./utils/Web5Context";
 import Footer from "./components/Footer";
 import Specialists from "./components/Specialists";
+import NavBar from "./components/NavBar";
 
 const App = () => {
   const { web5, did } = useContext(Web5Context);
@@ -11,9 +12,7 @@ const App = () => {
   console.log("Did : ", did);
   return (
     <>
-      <h1 className="text-3xl font-bold underline text-og-blue">
-        Hello world!
-      </h1>
+      <NavBar />
       <Specialists />
       <Footer />
     </>
