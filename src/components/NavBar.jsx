@@ -1,7 +1,7 @@
 const NavBar = () => {
   return (
     <nav className="w-full mx-auto p-8">
-      <div className="w-full flex flex-row items-center justify-around">
+      <div className="w-full flex flex-row items-center justify-between">
         <a href="/" className="uppercase flex flex-col -space-y-4">
           <span className="text-olive-green font-bold text-[36px]">p2doc</span>
           <span className="text-og-blue text-[18px] font-medium">
