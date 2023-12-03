@@ -2,7 +2,7 @@ import hero from "../assets/hero.png";
 
 const Hero = () => {
   return (
-    <section className="mx-auto w-full p-10">
+    <section className="mx-auto w-full p-10 py-20">
       <div className="w-full mx-auto grid grid-cols-2 items-center justify-center gap-5">
         <div className="flex flex-col items-start justify-start space-y-10">
           <h1 className="text-black text-[48px] font-bold">
