@@ -17,7 +17,7 @@ const Services = () => {
         )
     })
   return (
-    <div className="bg-[#fdecec] py-16 sm:py-16">
+    <div className="bg-[#fef5f5] py-16 sm:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="service-title">
                 <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl service_title">Our Services</p>

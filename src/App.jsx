@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import Services from "./services/Services";
 import React from "react";
+import Services from "./services/Services";
 import { useContext } from "react";
 import { Web5Context } from "./utils/Web5Context";
 import Footer from "./components/Footer";
