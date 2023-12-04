@@ -1,3 +1,4 @@
+import Services from "./services/Services";
 import React from "react";
 import { useContext } from "react";
 import { Web5Context } from "./utils/Web5Context";
@@ -11,9 +12,7 @@ const App = () => {
   console.log("Did : ", did);
   return (
     <>
-      <h1 className="text-3xl font-bold underline text-og-blue">
-        Hello world!
-      </h1>
+      <Services />
       <Specialists />
       <Footer />
     </>
