@@ -21,7 +21,7 @@ const NavBar = () => {
             type="button"
             className="text-[18px] bg-og-blue text-black rounded-full py-2 px-4 font-semibold p-3"
           >
-            Appointment
+            Get Started
           </button>
         </div>
       </div>
