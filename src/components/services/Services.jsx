@@ -1,5 +1,5 @@
 import React from 'react'
-import { servicesConstnat } from '../constant/AppConstant'
+import { servicesConstnat } from '../../constant/AppConstant'
 
 const Services = () => {
 
