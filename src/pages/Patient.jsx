@@ -39,7 +39,7 @@ import {
             </div>
           </aside>
           <div className="flex-1 mx-auto bg-[#f7f7f7] rounded-[60px] px-10 py-7">
-            <div className="w-full mx-auto flex flex-col items-start justify-start  space-y-[50px]">
+            <div className="w-full mx-auto flex flex-col items-start justify-start space-y-[50px]">
               <nav className="w-full inline-flex item-center justify-end">
               <button
                     type="button"
@@ -114,12 +114,12 @@ import {
                         <div>
                             <div className="w-full px-5 py-3 mb-2 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
                                 <div className="px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3 w-3/5">
-                                    <san
+                                    <span
                                     className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
                                     items-center justify-center rounded-full"
                                     >
                                     P
-                                    </san>
+                                    </span>
                                     <div>
                                         <h4 className="text-[16px] text-black">
                                             Dr. Brandon
@@ -136,12 +136,12 @@ import {
 
                             <div className="w-full px-5 py-3 mb-2 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
                                 <div className="px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3 w-3/5">
-                                    <san
+                                    <span
                                     className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
                                     items-center justify-center rounded-full"
                                     >
                                     P
-                                    </san>
+                                    </span>
                                     <div>
                                         <h4 className="text-[16px] text-black">
                                             Dr. Robert
@@ -158,12 +158,12 @@ import {
 
                             <div className="w-full px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
                                 <div className="px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3 w-3/5">
-                                    <san
+                                    <span
                                     className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
                                     items-center justify-center rounded-full"
                                     >
                                     P
-                                    </san>
+                                    </span>
                                     <div>
                                         <h4 className="text-[16px] text-black">
                                             Dr. Greg
@@ -240,12 +240,12 @@ import {
                         </div>
                         <div className="w-full bg-[#749D1C] rounded-xl p-4 inline-flex space-x-3 items-center justify-between h-20">
                             <div className="px-5 py-3 rounded-xl inline-flex items-center justify-start space-x-3 w-full">
-                                    <san
+                                    <span
                                     className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
                                     items-center justify-center rounded-full"
                                     >
                                         <img src="/assets/images/ellipse.png" alt="recommender image" />
-                                    </san>
+                                    </span>
                                     <div>
                                         <h4 className="text-[16px] text-black text-[#FFFFFF]">
                                             Dr. Brandon
@@ -258,41 +258,36 @@ import {
                         </div>
                     </div>
 
-                    <div className="bg-[#41CBE2] rounded-xl p-4 w-3/5">
-                            <div className="w-full px-5 py-3 mb-2 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
-                                <div className="px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3 w-50">
-                                    <san
-                                    className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
-                                    items-center justify-center rounded-full"
-                                    >
-                                    P
-                                    </san>
+                    <div className="bg-[#FFFFFF] rounded-xl p-4 w-3/5 h-32">
+                            <div className="w-full px-5 py-3 mb-2 bg-[#41CBE2] rounded-xl inline-flex items-center justify-start gap-4 space-x-3">
+                                <div className="px-5 py-3 rounded-xl inline-flex items-center justify-start space-x-3 w-1/2">
                                     <div>
-                                        <h4 className="text-[16px] text-black">
-                                            Dr. Brandon
+                                        <h4 className="text-[16px] text-black text-[#FFFFFF]">
+                                            Upcoming Visits
                                         </h4>
-                                        <spam className="text-[12px] text-[#0d0d0d60]">
-                                            Cardiology
-                                        </spam>
                                     </div>
-                                </div>
-                                <div className="px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3 w-50">
-                                    <san
-                                    className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
-                                    items-center justify-center rounded-full"
+                                    <span
+                                        className="h-6 w-10 bg-white text-[12px] bg-white text-[#41CBE2] flex 
+                                    items-center justify-center rounded"
                                     >
-                                    P
-                                    </san>
-                                    <div>
-                                        <h4 className="text-[16px] text-black">
-                                            Dr. Brandon
-                                        </h4>
-                                        <spam className="text-[12px] text-[#0d0d0d60]">
-                                            Cardiology
-                                        </spam>
-                                    </div>
+                                        40
+                                    </span>
                                 </div>
-                        </div>
+                                <div className="border border-white h-16 w-[1px]"></div>
+                                <div className="px-5 py-3 rounded-xl inline-flex items-center justify-start space-x-3 w-1/2">
+                                    <div>
+                                        <h4 className="text-[16px] text-black text-[#FFFFFF]">
+                                            Total Visists
+                                        </h4>
+                                    </div>
+                                    <span
+                                        className="h-6 w-10 text-[12px] bg-white text-[#41CBE2] flex 
+                                    items-center justify-center rounded"
+                                    >
+                                        40
+                                    </span>
+                                </div>
+                            </div>
                     </div>
                 </div>
 
