@@ -211,7 +211,7 @@ import {
                                 </span>
                             </h3>
                         </div>
-                        <p className="w-full px-8 text-[#f7f7f7] py-4 bg-og-blue rounded-full text-[16px] mb-8 font-semibold">
+                        <p className="w-full px-8 text-[#f7f7f7] py-4 bg-og-blue rounded-full text-[16px] mb-8 font-semibold text-center">
                             View Next of Kin
                         </p>
                         <div className="inline-flex items-center place-content-center w-full mb-8">
@@ -221,7 +221,7 @@ import {
                                 </span>
                             </h3>
                         </div>
-                        <p className="w-full px-8 text-[#f7f7f7] py-4 bg-og-blue rounded-full text-[16px] font-semibold">
+                        <p className="w-full px-8 text-[#f7f7f7] py-4 bg-og-blue rounded-full text-[16px] font-semibold text-center">
                             Add Next of Kin
                         </p>
                         </div>
