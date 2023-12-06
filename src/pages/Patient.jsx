@@ -228,6 +228,73 @@ import {
                     </div>
               </div>
 
+              <div className="w-full inline-flex item-center justify-between gap-x-16">
+                    <div className="bg-[#FFFFFF] rounded-xl p-4 w-2/5">
+                        <div className="bg-white rounded-xl p-4">
+                            <div className="inline-flex items-center justify-between w-full">
+                                <h2 className="font-bold font-4xl">Reminder</h2>
+                                <Link to="/" className="text-[12px] underline">
+                                    View all
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="w-full bg-[#749D1C] rounded-xl p-4 inline-flex space-x-3 items-center justify-between h-20">
+                            <div className="px-5 py-3 rounded-xl inline-flex items-center justify-start space-x-3 w-full">
+                                    <san
+                                    className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
+                                    items-center justify-center rounded-full"
+                                    >
+                                        <img src="/assets/images/ellipse.png" alt="recommender image" />
+                                    </san>
+                                    <div>
+                                        <h4 className="text-[16px] text-black text-[#FFFFFF]">
+                                            Dr. Brandon
+                                        </h4>
+                                        <spam className="text-[12px] text-[#F0F0F0]">
+                                            30 Jan, 2023   |   04:00 PM
+                                        </spam>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="bg-[#41CBE2] rounded-xl p-4 w-3/5">
+                            <div className="w-full px-5 py-3 mb-2 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
+                                <div className="px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3 w-50">
+                                    <san
+                                    className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
+                                    items-center justify-center rounded-full"
+                                    >
+                                    P
+                                    </san>
+                                    <div>
+                                        <h4 className="text-[16px] text-black">
+                                            Dr. Brandon
+                                        </h4>
+                                        <spam className="text-[12px] text-[#0d0d0d60]">
+                                            Cardiology
+                                        </spam>
+                                    </div>
+                                </div>
+                                <div className="px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3 w-50">
+                                    <san
+                                    className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
+                                    items-center justify-center rounded-full"
+                                    >
+                                    P
+                                    </san>
+                                    <div>
+                                        <h4 className="text-[16px] text-black">
+                                            Dr. Brandon
+                                        </h4>
+                                        <spam className="text-[12px] text-[#0d0d0d60]">
+                                            Cardiology
+                                        </spam>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
           </div>
