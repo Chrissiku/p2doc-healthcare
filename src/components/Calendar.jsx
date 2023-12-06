@@ -105,7 +105,7 @@ const Calendar = () => {
             />
           </button>
         </div>
-        <div className="grid grid-cols-7 mt-10 text-[10px] leading-6 text-center text-gray-500">
+        <div className="grid grid-cols-7 mt-4 text-[10px] leading-6 text-center text-gray-500">
           <div>SUN</div>
           <div>MON</div>
           <div>TUE</div>
@@ -114,13 +114,13 @@ const Calendar = () => {
           <div>FRI</div>
           <div>SAT</div>
         </div>
-        <div className="grid grid-cols-7 mt-2 text-[15px]">
+        <div className="grid grid-cols-7 h-35 text-[12px]">
           {days.map((day, dayIdx) => (
             <div
               key={day.toString()}
               className={classNames(
                 dayIdx === 0 && colStartClasses[getDay(day)],
-                "py-1"
+                "py-.25"
               )}
             >
               <button

@@ -53,6 +53,7 @@ import {
                     </div>
                 </button>
               </nav>
+
               <div className="w-full mx-auto space-y-5">
                 <div className="w-full inline-flex item-center justify-between">
                   <h2 className="text-[36px] font-normal">
@@ -71,6 +72,7 @@ import {
                     <span className="text-[20px] font-normal">Book Appointment</span>
                   </button>
                 </div>
+
                 <div className="w-full inline-flex item-center justify-between gap-x-16">
                     <div className="bg-[#41CBE2] rounded-xl p-4 w-2/5">
                         <div className="bg-white rounded-xl p-4 mb-8">
@@ -179,6 +181,35 @@ import {
                     </div>
                 </div>
               </div>
+
+
+              <div className="w-full mx-auto space-y-5">
+                
+                <div className="w-full inline-flex item-center justify-between gap-x-8">
+                    {/* 1st */}
+                    <div className="bg-[#41CBE2] rounded-xl p-4 w-1/3 h-50">
+                        <Calendar />
+                    </div>
+                    {/* 2nd */}
+                    <div className="bg-[#41CBE2] rounded-xl p-4 w-1/3">
+                        <div className="relative">
+                            <img src="/assets/images/patient_booking.png" className="h-100" alt="patient booking" />
+                            <div className="absolute bottom-0 px-4 py-3 bg-gray-500/50 w-full">
+                                <h3 className="text-white font-semibold text-4xl">My Health Records</h3>
+                                <p className="text-gray-200">
+                                I love kittens very much. They are amazing.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {/* 3rd */}
+                    <div className="bg-[#41CBE2] rounded-xl p-4 w-1/3">
+                       
+                    </div>
+                </div>
+              </div>
+
+
             </div>
           </div>
         </div>
