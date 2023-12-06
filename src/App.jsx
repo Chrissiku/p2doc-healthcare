@@ -5,6 +5,7 @@ import { Web5Context } from "./utils/Web5Context";
 import Home from "./pages/Home";
 import Doctor from "./pages/Doctor";
 import { Routes, Route } from "react-router-dom";
+import Patient from "./pages/Patient";
 
 const App = () => {
   const { web5, did } = useContext(Web5Context);
@@ -16,6 +17,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/doctor" element={<Doctor />} />
+        <Route path="/patient" element={<Patient />} />
       </Routes>
     </>
   );
