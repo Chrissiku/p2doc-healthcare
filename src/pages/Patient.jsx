@@ -193,8 +193,8 @@ import {
                     {/* 2nd */}
                     <div className="rounded-xl p-4 w-1/3">
                         <div className="relative h-100">
-                            <img src="/assets/images/patient_booking.png" className="h-100 relative" alt="patient booking" />
-                            <div className="absolute bottom-0 px-4 py-3 bg-gray-500/50 w-full item-center">
+                            <img src="/assets/images/patient_booking.png" className="relative object-contain" alt="patient booking" />
+                            <div className="absolute bottom-0 px-4 pt-8 pb-3 top-0 bg-[#00000099] w-full item-center text-center rounded-xl">
                                 <p className="text-white font-semibold mb-16">My Health Records</p>
                                 <spam className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-2xl">
                                     View
@@ -203,8 +203,8 @@ import {
                         </div>
                     </div>
                     {/* 3rd */}
-                    <div className="bg-[#FFFFFF] rounded-xl p-4 w-1/3">
-                        <div className="inline-flex items-center place-content-center w-full mb-16 mt-8">
+                    <div className="bg-[#FFFFFF] rounded-xl p-4 w-1/3 h-84">
+                        <div className="inline-flex items-center place-content-center w-full mb-8 mt-8">
                             <h3 className="inline-flex space-x-4 items-center justify-between text-[20px]">
                                 <span className="font-semibold">
                                     Emergency Contacts
