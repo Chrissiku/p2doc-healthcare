@@ -17,7 +17,7 @@ const Hero = () => {
             className="bg-og-blue text-dark-gray text-center text-[20px] font-bold capitalize rounded-full px-10 py-5"
             type="button"
           >
-            Book an Appointment
+            Start Your Journey
           </button>
         </div>
         <div>
