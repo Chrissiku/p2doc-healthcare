@@ -1,11 +1,10 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import Services from "./services/Services";
 import { useContext } from "react";
 import { Web5Context } from "./utils/Web5Context";
-import Footer from "./components/Footer";
-import Specialists from "./components/Specialists";
-import Header from "./components/Header";
+import Home from "./pages/Home";
+import Doctor from "./pages/Doctor";
+import { Routes, Route } from "react-router-dom";
 
 const App = () => {
   const { web5, did } = useContext(Web5Context);
@@ -14,10 +13,10 @@ const App = () => {
   console.log("Did : ", did);
   return (
     <>
-      <Header />
-      <Services />
-      <Specialists />
-      <Footer />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/doctor" element={<Doctor />} />
+      </Routes>
     </>
   );
 };
