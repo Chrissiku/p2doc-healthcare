@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@web5/api": "^0.8.2",
+    "date-fns": "^2.30.0",
+    "flowbite-datepicker": "^1.2.4",
     "react": "^18.2.0",
+    "react-calendar": "^4.6.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.1",
     "swiper": "^11.0.5"
