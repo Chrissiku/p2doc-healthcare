@@ -187,18 +187,18 @@ import {
                 
                 <div className="w-full inline-flex item-center justify-between gap-x-8">
                     {/* 1st */}
-                    <div className="bg-[#41CBE2] rounded-xl p-4 w-1/3 h-50">
+                    <div className="rounded-xl p-4 w-1/3 h-50">
                         <Calendar />
                     </div>
                     {/* 2nd */}
-                    <div className="bg-[#41CBE2] rounded-xl p-4 w-1/3">
-                        <div className="relative">
-                            <img src="/assets/images/patient_booking.png" className="h-100" alt="patient booking" />
-                            <div className="absolute bottom-0 px-4 py-3 bg-gray-500/50 w-full">
-                                <h3 className="text-white font-semibold text-4xl">My Health Records</h3>
-                                <p className="text-gray-200">
-                                I love kittens very much. They are amazing.
-                                </p>
+                    <div className="rounded-xl p-4 w-1/3">
+                        <div className="relative h-100">
+                            <img src="/assets/images/patient_booking.png" className="h-100 relative" alt="patient booking" />
+                            <div className="absolute bottom-0 px-4 py-3 bg-gray-500/50 w-full item-center">
+                                <p className="text-white font-semibold mb-16">My Health Records</p>
+                                <spam className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-2xl">
+                                    View
+                                </spam>
                             </div>
                         </div>
                     </div>
