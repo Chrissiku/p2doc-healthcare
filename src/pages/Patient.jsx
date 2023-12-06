@@ -129,7 +129,7 @@ import {
                                         </spam>
                                     </div>
                                 </div>
-                                <spam className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-2xl">
+                                <spam className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-full">
                                     Book
                                 </spam>
                             </div>
@@ -151,7 +151,7 @@ import {
                                         </spam>
                                     </div>
                                 </div>
-                                <spam className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-2xl">
+                                <spam className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-full">
                                     Book
                                 </spam>
                             </div>
@@ -173,7 +173,7 @@ import {
                                         </spam>
                                     </div>
                                 </div>
-                                <spam className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-2xl">
+                                <spam className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-full">
                                     Book
                                 </spam>
                             </div>
@@ -203,10 +203,29 @@ import {
                         </div>
                     </div>
                     {/* 3rd */}
-                    <div className="bg-[#41CBE2] rounded-xl p-4 w-1/3">
-                       
+                    <div className="bg-[#FFFFFF] rounded-xl p-4 w-1/3">
+                        <div className="inline-flex items-center place-content-center w-full mb-16 mt-8">
+                            <h3 className="inline-flex space-x-4 items-center justify-between text-[20px]">
+                                <span className="font-semibold">
+                                    Emergency Contacts
+                                </span>
+                            </h3>
+                        </div>
+                        <p className="w-full px-8 text-[#f7f7f7] py-4 bg-og-blue rounded-full text-[16px] mb-8 font-semibold">
+                            View Next of Kin
+                        </p>
+                        <div className="inline-flex items-center place-content-center w-full mb-8">
+                            <h3 className="inline-flex space-x-4 items-center justify-between text-[20px]">
+                                <span className="font-semibold">
+                                    Or
+                                </span>
+                            </h3>
+                        </div>
+                        <p className="w-full px-8 text-[#f7f7f7] py-4 bg-og-blue rounded-full text-[16px] font-semibold">
+                            Add Next of Kin
+                        </p>
+                        </div>
                     </div>
-                </div>
               </div>
 
 
