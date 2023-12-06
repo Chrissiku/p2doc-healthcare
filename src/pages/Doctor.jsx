@@ -2,11 +2,13 @@ import {
   ArrowLeftOnRectangleIcon,
   Squares2X2Icon,
   BellAlertIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid";
 
 import {
   PlusCircleIcon,
   DocumentDuplicateIcon,
+  ArrowTrendingUpIcon,
 } from "@heroicons/react/24/outline";
 import Profile from "../assets/hero.png";
 import Layer from "../assets/layer.png";
@@ -48,7 +50,24 @@ const Doctor = () => {
                 </span>
               </a>
               <div className="flex flex-row items-center justify-between space-x-[40px]">
-                <div>Search bar</div>
+                <div>
+                  <form className="">
+                    <div className="relative bg-[#e5e5e5] rounded-xl overflow-hidden w-full">
+                      <div
+                        className="bg-transparent absolute inset-y-0 start-0 flex items-center ps-3 
+                      pointer-events-none"
+                      >
+                        <MagnifyingGlassIcon className="w-5 h-5 text-[#A2A3A4]" />
+                      </div>
+                      <input
+                        type="search"
+                        className="block w-full p-4 ps-10 border-gray-300 rounded-lg bg-[#e5e5e5] outline-none"
+                        placeholder="Search ..."
+                        required
+                      />
+                    </div>
+                  </form>
+                </div>
                 <div className="text-[#8b8b8b] relative">
                   <span className="h-2 w-2 absolute top-0 right-1 bg-olive-green rounded-full"></span>
                   <BellAlertIcon className="w-[30px] h-[30px]" />
@@ -226,7 +245,7 @@ const Doctor = () => {
                   </div>
                 </div>
                 <div className="space-x-[50px] w-full flex flex-row items-end justify-between">
-                  <div className="w-[350px] bg-white rounded-3xl p-5 space-y-4">
+                  <div className="w-1/4 bg-white rounded-3xl p-5 space-y-4">
                     <div className="inline-flex items-center justify-between w-full">
                       <h2 className="text-[20px]">Reminder</h2>
                       <Link to="/" className="text-[12px] underline">
@@ -251,10 +270,46 @@ const Doctor = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-[330px] h-[180px] rounded-xl overflow-hidden">
+                  <div className="w-1/4 h-[180px] rounded-xl overflow-hidden">
                     <img src={Layer} className="w-full h-full object-cover" />
                   </div>
-                  <div className="flex-1">sec 3</div>
+                  <div className="flex-1 w-2/4">
+                    <div className="w-full flex items-center justify-between  bg-og-blue p-5 rounded-3xl">
+                      <div className="flex flex-col items-start justify-between space-y-8">
+                        <h5 className="text-white text-[20px]">
+                          <span>New Patients</span>{" "}
+                          <span className="text-og-blue bg-white py-[2px] px-2 rounded-lg">
+                            40
+                          </span>
+                        </h5>
+                        <div className="bg-[#DFFDDD] p-2 inline-flex items-center justify-between space-x-4 rounded-xl">
+                          <span className="text-[#008000] text-[18px]">
+                            50%
+                          </span>
+                          <span>
+                            <ArrowTrendingUpIcon className="text-og-blue w-[26px] h-[20px] " />
+                          </span>
+                        </div>
+                      </div>
+                      <div className="border border-white h-[100px] w-[1px]"></div>
+                      <div className="flex flex-col items-start justify-between space-y-8">
+                        <h5 className="text-white text-[20px]">
+                          <span>Repeats patients</span>{" "}
+                          <span className="text-og-blue bg-white py-[2px] px-2 rounded-lg">
+                            23
+                          </span>
+                        </h5>
+                        <div className="bg-[#DFFDDD] p-2 inline-flex items-center justify-between space-x-4 rounded-xl">
+                          <span className="text-[#008000] text-[18px]">
+                            32%
+                          </span>
+                          <span>
+                            <ArrowTrendingUpIcon className="text-og-blue w-[26px] h-[20px] " />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
