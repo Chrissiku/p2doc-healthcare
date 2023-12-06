@@ -74,8 +74,8 @@ const Calendar = () => {
   }
 
   return (
-    <div className="w-full p-5 bg-white rounded-3xl space-y-[15px]">
-      <h3 className="text-[20px] font-semibold">Calendar</h3>
+    <div className="w-full p-5 bg-white rounded-3xl space-y-[4px]">
+      <h3 className="text-[18px] font-semibold">Calendar</h3>
       {/* Calendar */}
       <div className="w-full">
         <div className="inline-flex items-center justify-between w-full border-b py-3 border-[#d2d2d2]">
@@ -105,7 +105,7 @@ const Calendar = () => {
             />
           </button>
         </div>
-        <div className="grid grid-cols-7 mt-4 text-[10px] leading-6 text-center text-gray-500">
+        <div className="grid grid-cols-7 mt-2 text-[10px] leading-6 text-center text-gray-500">
           <div>SUN</div>
           <div>MON</div>
           <div>TUE</div>
@@ -157,7 +157,7 @@ const Calendar = () => {
                 {meetings.some((meeting) =>
                   isSameDay(parseISO(meeting.startDatetime), day)
                 ) && (
-                  <div className="w-2 h-2 -mt-2 rounded-full bg-[#e33737]"></div>
+                  <div className="w-2 h-2 -mt-5 rounded-full bg-[#e33737]"></div>
                 )}
               </div>
             </div>
