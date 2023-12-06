@@ -11,6 +11,7 @@ export default {
       "light-pink": "#F39F9F",
       "olive-green": "#749D1C",
       "dark-gray": "#333",
+      white: "#ffffff",
     },
     extend: {},
   },
