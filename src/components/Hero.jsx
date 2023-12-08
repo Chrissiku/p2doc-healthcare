@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import hero from "../assets/hero.png";
 
 const Hero = () => {
@@ -13,12 +14,13 @@ const Hero = () => {
             seamlessly connects patients with top-tier doctors while
             prioritizing privacy. Experience unparalleled medical care with us.
           </p>
-          <button
+          <Link
+            to="/inquiry-form"
             className="bg-og-blue text-dark-gray text-center text-[20px] font-bold capitalize rounded-full px-10 py-5"
             type="button"
           >
             Start Your Journey
-          </button>
+          </Link>
         </div>
         <div>
           <img src={hero} alt="hero" />
