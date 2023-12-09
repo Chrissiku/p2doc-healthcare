@@ -40,9 +40,6 @@ const App = () => {
           path="/"
           element={<DashboardComponent openModal={openModal} />}
         />
-        <Route path="/inquiry-form" element={<InquiryModal />} />
-        <Route path="/doctor-form" element={<DoctorsForm />} />
-        <Route path="/patient-form" element={<PatientsForm />} />
       </Routes>
       <MyModal isOpen={isOpen} closeModal={closeModal} openModal={openModal} />
     </>

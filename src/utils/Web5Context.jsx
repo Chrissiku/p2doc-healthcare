@@ -8,7 +8,7 @@ export const Web5Context = createContext();
 const ContextProvider = ({ children }) => {
   const [web5, setWeb5] = useState(null);
   const [did, setDid] = useState(null);
-  const [userType, setUserType] = useState('patient');
+  const [userType, setUserType] = useState(null);
   const [medicalRecords, setMedicalRecords] = useState([]);
 
   useEffect(() => {
