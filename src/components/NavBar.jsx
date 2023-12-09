@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const NavBar = () => {
   return (
     <nav className="w-full mx-auto p-8">
@@ -17,12 +19,12 @@ const NavBar = () => {
           <a href="/">contact</a>
         </div>
         <div>
-          <button
+          <Link to="/inquiry-form"
             type="button"
             className="text-[18px] bg-og-blue text-black rounded-full py-2 px-4 font-semibold p-3"
           >
-            Appointment
-          </button>
+            Get Started
+          </Link>
         </div>
       </div>
     </nav>

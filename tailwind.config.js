@@ -5,14 +5,15 @@ export default {
     fontFamily: {
       poppins: ["Poppins", "sans-serif"],
     },
-    colors: {
-      "og-blue": "#41cbe2",
-      "light-dark": "#585858",
-      "light-pink": "#F39F9F",
-      "olive-green": "#749D1C",
-      "dark-gray": "#333",
+    extend: {
+      colors: {
+        "og-blue": "#41cbe2",
+        "light-dark": "#585858",
+        "light-pink": "#F39F9F",
+        "olive-green": "#749D1C",
+        "dark-gray": "#333",
+      },
     },
-    extend: {},
   },
   plugins: [],
 };
