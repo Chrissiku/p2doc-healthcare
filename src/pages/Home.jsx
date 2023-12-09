@@ -3,10 +3,10 @@ import Header from "../components/Header";
 import Specialists from "../components/Specialists";
 import Services from "../components/services/Services";
 
-const Home = () => {
+const Home = ({ openModal }) => {
   return (
     <>
-      <Header />
+      <Header openModal={openModal} />
       <Services />
       <Specialists />
       <Footer />
