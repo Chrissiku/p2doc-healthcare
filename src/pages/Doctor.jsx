@@ -194,51 +194,51 @@ const Doctor = () => {
                         </Link>
                       </div>
                       <div className="w-full px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
-                        <san
+                        <span
                           className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
                         items-center justify-center rounded-full"
                         >
                           P
-                        </san>
+                        </span>
                         <div>
                           <h4 className="text-[16px] text-black">
                             Patient Rounds
                           </h4>
-                          <spam className="text-[12px] text-[#0d0d0d60]">
+                          <span className="text-[12px] text-[#0d0d0d60]">
                             25 Jan, 2023 | 04:00 PM
-                          </spam>
+                          </span>
                         </div>
                       </div>
                       <div className="w-full px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
-                        <san
+                        <span
                           className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
                         items-center justify-center rounded-full"
                         >
                           L
-                        </san>
+                        </span>
                         <div>
                           <h4 className="text-[16px] text-black">
                             Laboratory test results review
                           </h4>
-                          <spam className="text-[12px] text-[#0d0d0d60]">
+                          <span className="text-[12px] text-[#0d0d0d60]">
                             25 Jan, 2023 | 04:00 PM
-                          </spam>
+                          </span>
                         </div>
                       </div>
                       <div className="w-full px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
-                        <san
+                        <span
                           className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
                         items-center justify-center rounded-full"
                         >
                           S
-                        </san>
+                        </span>
                         <div>
                           <h4 className="text-[16px] text-black">
                             Surgical procedures
                           </h4>
-                          <spam className="text-[12px] text-[#0d0d0d60]">
+                          <span className="text-[12px] text-[#0d0d0d60]">
                             25 Jan, 2023 | 04:00 PM
-                          </spam>
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -254,19 +254,19 @@ const Doctor = () => {
                     </div>
 
                     <div className="w-full px-5 py-3 bg-olive-green rounded-xl inline-flex items-center justify-start space-x-3">
-                      <san
+                      <span
                         className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
                         items-center justify-center rounded-full"
                       >
                         S
-                      </san>
+                      </span>
                       <div>
                         <h4 className="text-[16px] text-white">
                           Surgical procedure
                         </h4>
-                        <spam className="text-[12px] text-[#f0f0f060]">
+                        <span className="text-[12px] text-[#f0f0f060]">
                           30 Jan, 2023 | 04:00 PM
-                        </spam>
+                        </span>
                       </div>
                     </div>
                   </div>

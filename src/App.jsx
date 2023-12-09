@@ -28,7 +28,7 @@ const App = () => {
     if (did) {
       console.log(did);
     }
-  }, [did]);
+  }, [did, userType]);
 
   const DashboardComponent =
     userType === "doctor" ? Doctor : userType === "patient" ? Patient : Home;
@@ -36,13 +36,10 @@ const App = () => {
   return (
     <>
       <Routes>
-        {/* <Route path="/" element={<Home openModal={openModal} />} /> */}
         <Route
           path="/"
           element={<DashboardComponent openModal={openModal} />}
         />
-        {/* <Route path="/doctor" element={<Doctor />} />
-        <Route path="/patient" element={<Patient />} /> */}
         <Route path="/inquiry-form" element={<InquiryModal />} />
         <Route path="/doctor-form" element={<DoctorsForm />} />
         <Route path="/patient-form" element={<PatientsForm />} />
