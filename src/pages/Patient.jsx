@@ -8,8 +8,69 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import Calendar from "../components/Calendar";
+import { useContext, useEffect, useState } from "react";
+import { Web5Context } from "../utils/Web5Context";
 
 const Patient = () => {
+  const { web5, did, protocolDefinition } = useContext(Web5Context);
+  const [patientData, setPatientData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log("Fetching patient Profile");
+        const response = await web5.dwn.records.query({
+          from: did,
+          message: {
+            filter: {
+              protocol: protocolDefinition.protocol,
+              schema: protocolDefinition.types.patientProfile.schema,
+            },
+          },
+        });
+
+        if (response.status.code === 200) {
+          const patientProfile = await Promise.all(
+            response.records.map(async (record) => {
+              const data = await record.data.json();
+              return {
+                ...data,
+                recordId: record.id,
+              };
+            })
+          );
+          setPatientData(patientProfile[patientProfile.length - 1]);
+          return patientProfile;
+        } else {
+          console.error("error fetching this profile", response.status);
+          return [];
+        }
+      } catch (error) {
+        console.error("error fetching patient profile :", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const calculateAge = (dob) => {
+    const birthDate = new Date(dob);
+    const currentDate = new Date();
+    const age = currentDate.getFullYear() - birthDate.getFullYear();
+
+    if (
+      currentDate.getMonth() < birthDate.getMonth() ||
+      (currentDate.getMonth() === birthDate.getMonth() &&
+        currentDate.getMonth() < birthDate.getMonth())
+    ) {
+      return age - 1;
+    } else {
+      return age;
+    }
+  };
+
+  console.log(patientData);
+
   return (
     <div className="w-full mx-auto bg-og-blue p-5">
       <div className="w-full mx-auto flex flex-row items-start justify-center space-x-5">
@@ -40,7 +101,7 @@ const Patient = () => {
                 className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#D9D9D9] border-0 border-og-blue rounded-2xl"
               >
                 <div className="text-[#9e9e9e] inline-flex space-x-3 items-end justify-between">
-                  <span>EiArQgMv...UXpnIn19</span>
+                  <span>{did.slice(0, 20) + "..." + did.slice(-8)}</span>
                   <span>
                     <DocumentDuplicateIcon className="h-5 w-5" />
                   </span>
@@ -52,7 +113,9 @@ const Patient = () => {
               <div className="w-full inline-flex item-center justify-between">
                 <h2 className="text-[36px] font-normal">
                   Welcome{" "}
-                  <span className="text-olive-green font-bold">Grace!</span>
+                  <span className="text-olive-green font-bold">
+                    {patientData.name}!
+                  </span>
                 </h2>
                 <button
                   type="button"
@@ -72,7 +135,7 @@ const Patient = () => {
                   <div className="bg-white rounded-xl p-4 mb-8">
                     <h3 className="text-[20px] font-medium">DID</h3>
                     <div className="text-[#9e9e9e] inline-flex space-x-3 items-center justify-between">
-                      <span>EiArQgMv...UXpnIn19</span>
+                      <span>{did.slice(0, 20) + "..." + did.slice(-8)}</span>
                       <button type="button">
                         <DocumentDuplicateIcon className="h-5 w-5" />
                       </button>
@@ -81,7 +144,7 @@ const Patient = () => {
                   <div className="bg-white rounded-xl p-4 mb-8">
                     <h3 className="text-[20px] font-medium">Age</h3>
                     <div className="text-[#9e9e9e] inline-flex space-x-3 items-center justify-between">
-                      <span>26 years</span>
+                      <span>{calculateAge(patientData.dob)} years</span>
                     </div>
                   </div>
                   <div className="bg-white rounded-xl p-4">
