@@ -12,7 +12,9 @@ import { useContext, useEffect, useState } from "react";
 import { Web5Context } from "../utils/Web5Context";
 
 const Patient = () => {
-  const { web5, did, protocolDefinition } = useContext(Web5Context);
+  const { web5, did, protocolDefinition, setUserType } = useContext(
+    Web5Context
+  );
   const [patientData, setPatientData] = useState([]);
 
   useEffect(() => {
@@ -69,8 +71,6 @@ const Patient = () => {
     }
   };
 
-  console.log(patientData);
-
   return (
     <div className="w-full mx-auto bg-og-blue p-5">
       <div className="w-full mx-auto flex flex-row items-start justify-center space-x-5">
@@ -84,13 +84,15 @@ const Patient = () => {
               <Squares2X2Icon className="h-8 w-8" />
             </div>
 
-            <div
+            <button
+              type="button"
+              onClick={() => setUserType(null)}
               className="p-3 hover:bg-[#fff9] rounded-lg text-white 
               hover:text-olive-green transition-all duration-300"
             >
               <span className="sr-only">menu</span>
               <ArrowLeftOnRectangleIcon className="h-8 w-8" />
-            </div>
+            </button>
           </div>
         </aside>
         <div className="flex-1 mx-auto bg-[#f7f7f7] rounded-[60px] px-10 py-7">
