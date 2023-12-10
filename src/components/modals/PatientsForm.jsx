@@ -1,6 +1,11 @@
-import { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useContext, useState } from "react";
+import { Web5Context } from "../../utils/Web5Context";
 
-export default function PatientsForm() {
+export default function PatientsForm({ userType, closeModal }) {
+  const { web5, did, setUserType, protocolDefinition } = useContext(
+    Web5Context
+  );
   const [formState, setFormState] = useState({
     name: "",
     dob: "",
@@ -23,14 +28,40 @@ export default function PatientsForm() {
     });
   };
 
+  console.log(protocolDefinition.types.patientProfile.schema);
+
+  const createPatient = async () => {
+    console.log("Creating Patient Profile ...");
+    try {
+      const { record, status } = await web5.dwn.records.write({
+        data: formState,
+        message: {
+          protocol: protocolDefinition.protocol,
+          protocolPath: "patientProfile",
+          schema: protocolDefinition.types.patientProfile.schema,
+          recipient: did,
+        },
+      });
+      console.log("Profile Created : ", { record, status });
+      await record.send(did);
+      console.log("Profile sent");
+    } catch (error) {
+      console.error("Error Creating patient data : ", error);
+    }
+  };
+
   const formSubmit = (e) => {
     e.preventDefault();
+    createPatient().finally(() => {
+      closeModal();
+      setUserType("patient");
+    });
   };
 
   return (
     <div className="w-full">
       <p className="text-lg font-normal text-black ">
-        Enter your details below
+        Enter your details below {userType}
       </p>
       <form className="pt-[60px]" onSubmit={formSubmit}>
         <div className="flex flex-col gap-[17px] pb-7">
@@ -68,7 +99,7 @@ export default function PatientsForm() {
           className="w-[93px] h-[38px] bg-sky-400 rounded-[100px] disabled:bg-black/40 disabled:cursor-not-allowed hover:bg-sky-300 duration-300 transition-colors ease-in-out"
           disabled={formState.dob === "" || formState.name === ""}
         >
-          Next
+          Connect
         </button>
       </form>
     </div>

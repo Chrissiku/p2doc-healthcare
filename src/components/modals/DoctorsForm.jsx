@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function DoctorsForm() {
+export default function DoctorsForm({userType}) {
   const [formState, setFormState] = useState({
     name: "",
     speciality: "",
@@ -20,7 +20,7 @@ export default function DoctorsForm() {
   return (
     <div className="w-full">
       <p className="text-lg font-normal ttext-black ">
-        Enter your details below
+        Enter your details below {userType}
       </p>
       <form className="pt-[60px]" onSubmit={formSubmit}>
         <div className="flex flex-col gap-[17px] pb-7">

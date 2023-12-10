@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
@@ -52,8 +53,10 @@ export default function MyModal({ isOpen, closeModal, openModal }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className={`w-full h-auto border p-20 border-red-300 flex flex-col items-center justify-center max-w-[600px]
-                transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all ${
+                  className={`w-full h-auto border p-20 border-red-300 flex flex-col items-center 
+                  justify-center max-w-[600px] overflow-hidden rounded-2xl bg-white 
+                  text-left align-middle shadow-xl transition-all duration-500 ease-in-out
+                ${
                   selectedType !== null ? "space-y-10 h-[700px]" : "space-y-10"
                 }`}
                 >
@@ -76,7 +79,7 @@ export default function MyModal({ isOpen, closeModal, openModal }) {
 
                   {selectedType === "doctor" ? (
                     <div className="flex flex-col items-center justify-center space-y-5">
-                      <DoctorsForm />
+                      <DoctorsForm userType={selectedType} />
                       <button
                         type="button"
                         className="inline-flex text-white items-center justify-center rounded-full bg-red-500 text-center w-14 h-14 text-[32px]"
@@ -87,7 +90,7 @@ export default function MyModal({ isOpen, closeModal, openModal }) {
                     </div>
                   ) : selectedType === "patient" ? (
                     <div className="flex flex-col items-center justify-center space-y-5">
-                      <PatientsForm />
+                      <PatientsForm userType={selectedType} closeModal={handleCloseModal} />
                       <button
                         type="button"
                         className="inline-flex text-white items-center justify-center rounded-full bg-red-500 text-center w-14 h-14 text-[32px]"

@@ -24,54 +24,53 @@ const ContextProvider = ({ children }) => {
     connectWeb5();
   }, []);
 
+  const schema = {
+    context: "https://schema.org/",
+    type: "Person",
+    get uri() {
+      return this.context + this.type;
+    },
+  };
+
+  const protocolDefinition = {
+    protocol: "http://localhost:5173",
+    published: true,
+    types: {
+      patientProfile: {
+        schema: `${schema.uri}/patientProfile`,
+        dataFormats: ["application/json"],
+      },
+      doctorProfile: {
+        schema: schema.uri,
+        dataFormats: ["application/json"],
+      },
+      medicalRecords: {
+        schema: schema.uri,
+        dataFormats: ["application/json"],
+      },
+    },
+    structure: {
+      medicalRecords: {
+        $actions: [
+          { who: "anyone", can: "write" },
+          { who: "recipient", of: "medicalRecords", can: "read" },
+        ],
+      },
+      patientProfile: {
+        $actions: [
+          { who: "anyone", can: "write" },
+          { who: "recipient", of: "patientProfile", can: "read" },
+        ],
+      },
+      doctorProfile: {
+        $actions: [
+          { who: "anyone", can: "write" },
+          { who: "anyone", can: "read" },
+        ],
+      },
+    },
+  };
   useEffect(() => {
-    const schema = {
-      context: "https://schema.org/",
-      type: "Person",
-      get uri() {
-        return this.context + this.type;
-      },
-    };
-
-    const protocolDefinition = {
-      protocol: "http://localhost:5173",
-      published: true,
-      types: {
-        patientProfile: {
-          schema: schema.uri,
-          dataFormats: ["application/json"],
-        },
-        doctorProfile: {
-          schema: schema.uri,
-          dataFormats: ["application/json"],
-        },
-        medicalRecords: {
-          schema: schema.uri,
-          dataFormats: ["application/json"],
-        },
-      },
-      structure: {
-        medicalRecords: {
-          $actions: [
-            { who: "anyone", can: "write" },
-            { who: "recipient", of: "medicalRecords", can: "read" },
-          ],
-        },
-        patientProfile: {
-          $actions: [
-            { who: "anyone", can: "write" },
-            { who: "recipient", of: "patientProfile", can: "read" },
-          ],
-        },
-        doctorProfile: {
-          $actions: [
-            { who: "anyone", can: "write" },
-            { who: "anyone", can: "read" },
-          ],
-        },
-      },
-    };
-
     const installProtocol = async () => {
       try {
         console.log("Installing protocol ...");
@@ -93,7 +92,7 @@ const ContextProvider = ({ children }) => {
     }
   }, [web5, did]);
 
-  const value = { web5, did, userType, setUserType };
+  const value = { web5, did, userType, setUserType, protocolDefinition };
 
   return (
     <div>
