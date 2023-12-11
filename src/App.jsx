@@ -37,6 +37,10 @@ const App = () => {
           path="/"
           element={<DashboardComponent openModal={openModal} />}
         />
+        {/* <Route
+          path="/dashboard"
+          element={<DashboardComponent openModal={openModal} />}
+        /> */}
       </Routes>
       <MyModal isOpen={isOpen} closeModal={closeModal} openModal={openModal} />
     </>

@@ -7,14 +7,13 @@ export default function DoctorsForm({ userType, closeModal }) {
   const { web5, did, setUserType, protocolDefinition } = useContext(
     Web5Context
   );
+
   const [formState, setFormState] = useState({
     name: "",
     speciality: "",
     experience: "",
+    did: did,
   });
-
-  console.log(protocolDefinition.types.doctorProfile.schema);
-  console.log(formState);
 
   const handleChange = (e) => {
     setFormState({
@@ -25,20 +24,28 @@ export default function DoctorsForm({ userType, closeModal }) {
 
   const createDoctor = async () => {
     console.log("Creating Doctor Profile ...");
+
     try {
       const { record, status } = await web5.dwn.records.write({
-        data: formState,
+        data: { ...formState },
         message: {
           protocol: protocolDefinition.protocol,
           protocolPath: "doctorProfile",
           schema: protocolDefinition.types.doctorProfile.schema,
           recipient: did,
+          published: true,
         },
       });
       console.log("Profile Created : ", { record, status });
 
       // Send to public and private did
       const DIDs = [did, publicDid];
+      // const statuses = await Promise.all(
+      //   DIDs.map(async (did) => {
+      //     const { status } = await record.send(did);
+      //     return status;
+      //   })
+      // );
       await Promise.all(
         DIDs.map(async (did) => {
           await record.send(did);
@@ -96,6 +103,24 @@ export default function DoctorsForm({ userType, closeModal }) {
             className="w-[410px] h-[53px] px-5 bg-white rounded-2xl border border-sky-400"
           />
         </div>
+        {/* <div className="flex flex-col gap-[17px] pb-7">
+          <label
+            className="mb-2 text-lg font-normal text-black"
+            htmlFor="user_avatar"
+          >
+            Upload file
+          </label>
+          <input
+            className="w-full py-2 text-lg text-black border border-sky-400 rounded-2xl cursor-pointer bg-white "
+            aria-describedby="user_avatar_help"
+            id="avatar"
+            name="avatar"
+            // value={formState.avatar}
+            onChange={handleImageChange}
+            type="file"
+          />
+        </div> */}
+
         <div className="flex flex-col gap-[17px] pb-8">
           <label
             htmlFor="experience"

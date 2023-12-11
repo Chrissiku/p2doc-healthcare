@@ -12,7 +12,7 @@ import { useContext, useEffect, useState } from "react";
 import { Web5Context } from "../utils/Web5Context";
 
 const Patient = () => {
-  const { web5, did, protocolDefinition, setUserType } = useContext(
+  const { web5, did, protocolDefinition, setUserType, doctorList } = useContext(
     Web5Context
   );
   const [patientData, setPatientData] = useState([]);
@@ -168,67 +168,32 @@ const Patient = () => {
                     </Link>
                   </div>
                   <div>
-                    <div className="w-full px-5 py-3 mb-2 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
-                      <div className="px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3 w-3/5">
-                        <span
-                          className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
+                    {doctorList.map((doctor, index) => (
+                      <div
+                        key={index}
+                        className="mb-2 w-full px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3"
+                      >
+                        <div className="px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3 w-3/5">
+                          <span
+                            className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
                                     items-center justify-center rounded-full"
-                        >
-                          P
-                        </span>
-                        <div>
-                          <h4 className="text-[16px] text-black">
-                            Dr. Brandon
-                          </h4>
-                          <span className="text-[12px] text-[#0d0d0d60]">
-                            Cardiology
+                          >
+                            P
                           </span>
+                          <div>
+                            <h4 className="text-[16px] text-black">
+                              Dr. {doctor.name}
+                            </h4>
+                            <span className="text-[12px] text-[#0d0d0d60]">
+                              {doctor.scpeciality}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      <span className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-full">
-                        Book
-                      </span>
-                    </div>
-
-                    <div className="w-full px-5 py-3 mb-2 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
-                      <div className="px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3 w-3/5">
-                        <span
-                          className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
-                                    items-center justify-center rounded-full"
-                        >
-                          P
+                        <span className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-full">
+                          Book
                         </span>
-                        <div>
-                          <h4 className="text-[16px] text-black">Dr. Robert</h4>
-                          <span className="text-[12px] text-[#0d0d0d60]">
-                            Neurology
-                          </span>
-                        </div>
                       </div>
-                      <span className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-full">
-                        Book
-                      </span>
-                    </div>
-
-                    <div className="w-full px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
-                      <div className="px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3 w-3/5">
-                        <span
-                          className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
-                                    items-center justify-center rounded-full"
-                        >
-                          P
-                        </span>
-                        <div>
-                          <h4 className="text-[16px] text-black">Dr. Greg</h4>
-                          <span className="text-[12px] text-[#0d0d0d60]">
-                            Oncology
-                          </span>
-                        </div>
-                      </div>
-                      <span className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-full">
-                        Book
-                      </span>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>
