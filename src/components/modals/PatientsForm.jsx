@@ -28,8 +28,6 @@ export default function PatientsForm({ userType, closeModal }) {
     });
   };
 
-  console.log(protocolDefinition.types.patientProfile.schema);
-
   const createPatient = async () => {
     console.log("Creating Patient Profile ...");
     try {

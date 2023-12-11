@@ -6,9 +6,6 @@ import Home from "./pages/Home";
 import Doctor from "./pages/Doctor";
 import { Routes, Route } from "react-router-dom";
 import Patient from "./pages/Patient";
-import InquiryModal from "./components/modals/InquiryForm";
-import DoctorsForm from "./components/modals/DoctorsForm";
-import PatientsForm from "./components/modals/PatientsForm";
 import MyModal from "./components/Modal";
 
 const App = () => {
@@ -26,7 +23,7 @@ const App = () => {
 
   useEffect(() => {
     if (did) {
-      console.log(did);
+      console.log("The DID : ", did.slice(0, 8) + "..." + did.slice(-5));
     }
   }, [did, userType]);
 

@@ -41,7 +41,7 @@ const ContextProvider = ({ children }) => {
         dataFormats: ["application/json"],
       },
       doctorProfile: {
-        schema: schema.uri,
+        schema: `${schema.uri}/doctorProfile`,
         dataFormats: ["application/json"],
       },
       medicalRecords: {

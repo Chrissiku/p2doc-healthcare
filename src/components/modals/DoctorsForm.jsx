@@ -1,11 +1,20 @@
-import { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useContext, useState } from "react";
+import { Web5Context } from "../../utils/Web5Context";
+import { publicDid } from "../../utils/constants";
 
-export default function DoctorsForm({userType}) {
+export default function DoctorsForm({ userType, closeModal }) {
+  const { web5, did, setUserType, protocolDefinition } = useContext(
+    Web5Context
+  );
   const [formState, setFormState] = useState({
     name: "",
     speciality: "",
     experience: "",
   });
+
+  console.log(protocolDefinition.types.doctorProfile.schema);
+  console.log(formState);
 
   const handleChange = (e) => {
     setFormState({
@@ -14,12 +23,45 @@ export default function DoctorsForm({userType}) {
     });
   };
 
+  const createDoctor = async () => {
+    console.log("Creating Doctor Profile ...");
+    try {
+      const { record, status } = await web5.dwn.records.write({
+        data: formState,
+        message: {
+          protocol: protocolDefinition.protocol,
+          protocolPath: "doctorProfile",
+          schema: protocolDefinition.types.doctorProfile.schema,
+          recipient: did,
+        },
+      });
+      console.log("Profile Created : ", { record, status });
+
+      // Send to public and private did
+      const DIDs = [did, publicDid];
+      await Promise.all(
+        DIDs.map(async (did) => {
+          await record.send(did);
+          // const { status } = await record.send(did);
+          // return status;
+        })
+      );
+      console.log("Profile sent");
+    } catch (error) {
+      console.error("Error Creating doctor data : ", error);
+    }
+  };
+
   const formSubmit = (e) => {
     e.preventDefault();
+    createDoctor().finally(() => {
+      closeModal();
+      setUserType("doctor");
+    });
   };
   return (
     <div className="w-full">
-      <p className="text-lg font-normal ttext-black ">
+      <p className="text-lg font-normal text-black ">
         Enter your details below {userType}
       </p>
       <form className="pt-[60px]" onSubmit={formSubmit}>
@@ -39,7 +81,7 @@ export default function DoctorsForm({userType}) {
         </div>
         <div className="flex flex-col gap-[17px] pb-7">
           <label
-            htmlFor="spciality"
+            htmlFor="speciality"
             className="text-lg font-normal text-black "
           >
             Speciality

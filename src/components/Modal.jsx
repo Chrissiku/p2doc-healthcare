@@ -79,7 +79,10 @@ export default function MyModal({ isOpen, closeModal, openModal }) {
 
                   {selectedType === "doctor" ? (
                     <div className="flex flex-col items-center justify-center space-y-5">
-                      <DoctorsForm userType={selectedType} />
+                      <DoctorsForm
+                        userType={selectedType}
+                        closeModal={handleCloseModal}
+                      />
                       <button
                         type="button"
                         className="inline-flex text-white items-center justify-center rounded-full bg-red-500 text-center w-14 h-14 text-[32px]"
@@ -90,7 +93,10 @@ export default function MyModal({ isOpen, closeModal, openModal }) {
                     </div>
                   ) : selectedType === "patient" ? (
                     <div className="flex flex-col items-center justify-center space-y-5">
-                      <PatientsForm userType={selectedType} closeModal={handleCloseModal} />
+                      <PatientsForm
+                        userType={selectedType}
+                        closeModal={handleCloseModal}
+                      />
                       <button
                         type="button"
                         className="inline-flex text-white items-center justify-center rounded-full bg-red-500 text-center w-14 h-14 text-[32px]"
