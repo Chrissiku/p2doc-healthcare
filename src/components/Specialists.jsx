@@ -5,8 +5,12 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import avatar from "/assets/avatar.svg";
+import { useContext } from "react";
+import { Web5Context } from "../utils/Web5Context";
 
 const Specialists = ({ specialistData }) => {
+  const { loadingDoctor } = useContext(Web5Context);
+
   if (specialistData.length === 0) {
     const randomMessages = [
       "No specialists available at the moment.",
@@ -18,7 +22,7 @@ const Specialists = ({ specialistData }) => {
 
     return (
       <div className="mx-auto w-full text-center text-[30px] bg-red-200 text-black py-20">
-        <p>{randomMessage}</p>{" "}
+        <p>{loadingDoctor ? <>Loading . . .</> : randomMessage}</p>{" "}
       </div>
     );
   }

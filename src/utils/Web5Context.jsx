@@ -12,6 +12,7 @@ const ContextProvider = ({ children }) => {
   const [userType, setUserType] = useState(null);
   const [medicalRecords, setMedicalRecords] = useState([]);
   const [doctorList, setDoctorList] = useState([]);
+  const [loadingDoctor, setLoadingDoctor] = useState(true);
 
   useEffect(() => {
     const connectWeb5 = async () => {
@@ -47,7 +48,11 @@ const ContextProvider = ({ children }) => {
         dataFormats: ["application/json"],
       },
       medicalRecords: {
-        schema: schema.uri,
+        schema: `${schema.uri}/medicalRecord`,
+        dataFormats: ["application/json"],
+      },
+      bookAppointment: {
+        schema: `${schema.uri}/appointment`,
         dataFormats: ["application/json"],
       },
     },
@@ -68,6 +73,12 @@ const ContextProvider = ({ children }) => {
         $actions: [
           { who: "anyone", can: "write" },
           { who: "anyone", can: "read" },
+        ],
+      },
+      bookAppointment: {
+        $actions: [
+          { who: "anyone", can: "write" },
+          { who: "recipient", of: "bookAppointment", can: "read" },
         ],
       },
     },
@@ -113,6 +124,7 @@ const ContextProvider = ({ children }) => {
             })
           );
           setDoctorList(doctorProfile);
+          setLoadingDoctor(false);
           return doctorProfile;
         } else {
           console.error("error fetching this profile", response.status);
@@ -136,6 +148,7 @@ const ContextProvider = ({ children }) => {
     setUserType,
     protocolDefinition,
     doctorList,
+    loadingDoctor,
   };
 
   return (

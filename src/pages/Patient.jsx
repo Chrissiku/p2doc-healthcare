@@ -16,6 +16,7 @@ const Patient = () => {
     Web5Context
   );
   const [patientData, setPatientData] = useState([]);
+  const [doctorInfo, setDoctorInfo] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,7 +53,16 @@ const Patient = () => {
       }
     };
 
+    const getRandomElements = () => {
+      const numElements = 3;
+      const randomArray = doctorList
+        .sort(() => 0.5 - Math.random())
+        .slice(0, numElements);
+      setDoctorInfo(randomArray);
+    };
+
     fetchData();
+    getRandomElements();
   }, []);
 
   const calculateAge = (dob) => {
@@ -133,7 +143,8 @@ const Patient = () => {
               </div>
 
               <div className="w-full inline-flex item-center justify-between gap-x-16">
-                <div className="bg-[#41CBE2] rounded-xl p-4 w-2/5">
+                {/* Patient info */}
+                <div className="bg-[#41CBE2] rounded-xl p-4 w-2/5 max-h-[250px]">
                   <div className="bg-white rounded-xl p-4 mb-8">
                     <h3 className="text-[20px] font-medium">DID</h3>
                     <div className="text-[#9e9e9e] inline-flex space-x-3 items-center justify-between">
@@ -149,13 +160,8 @@ const Patient = () => {
                       <span>{calculateAge(patientData.dob)} years</span>
                     </div>
                   </div>
-                  <div className="bg-white rounded-xl p-4">
-                    <h3 className="text-[20px] font-medium">Speciality</h3>
-                    <div className="text-[#9e9e9e] inline-flex space-x-3 items-center justify-between">
-                      <span>Neurology</span>
-                    </div>
-                  </div>
                 </div>
+                {/* Doctor's list*/}
                 <div className="bg-[#41CBE2] rounded-xl p-4 w-3/5">
                   <div className="inline-flex items-center justify-between w-full">
                     <h3 className="inline-flex space-x-4 items-center justify-between text-[20px]">
@@ -167,8 +173,8 @@ const Patient = () => {
                       View all
                     </Link>
                   </div>
-                  <div>
-                    {doctorList.map((doctor, index) => (
+                  <div className="py-5">
+                    {doctorInfo.map((doctor, index) => (
                       <div
                         key={index}
                         className="mb-2 w-full px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3"
@@ -176,16 +182,16 @@ const Patient = () => {
                         <div className="px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3 w-3/5">
                           <span
                             className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
-                                    items-center justify-center rounded-full"
+                                    items-center justify-center rounded-full uppercase"
                           >
-                            P
+                            {doctor.name.charAt(0)}
                           </span>
                           <div>
                             <h4 className="text-[16px] text-black">
                               Dr. {doctor.name}
                             </h4>
                             <span className="text-[12px] text-[#0d0d0d60]">
-                              {doctor.scpeciality}
+                              {doctor.speciality}
                             </span>
                           </div>
                         </div>
