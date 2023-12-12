@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 import Calendar from "../components/Calendar";
 import { useContext, useEffect, useState } from "react";
 import { Web5Context } from "../utils/Web5Context";
+import DoctorsList from "../components/DoctorsList";
+import BookingForm from "../components/AppointmentForm";
 
 const Patient = () => {
   const { web5, did, protocolDefinition, setUserType, doctorList } = useContext(
@@ -17,6 +19,18 @@ const Patient = () => {
   );
   const [patientData, setPatientData] = useState([]);
   const [doctorInfo, setDoctorInfo] = useState([]);
+  const [showDoctorsList, setShowDoctorsList] = useState(false);
+  const [showBookingForm, setShowBookingForm] = useState(false);
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+
+  const handleBookClick = (doctor) => {
+    setSelectedDoctor(doctor);
+    setShowBookingForm(true);
+  }
+
+  const handleFormSubmit = () => {
+    setShowBookingForm(false);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -169,9 +183,21 @@ const Patient = () => {
                         Doctor’s List
                       </span>
                     </h3>
-                    <Link to="/" className="underline font-normal text-[13px]">
-                      View all
-                    </Link>
+                    <div>
+                      <button
+                        onClick={() => setShowDoctorsList(true)}
+                        className="underline font-normal text-[13px]"
+                      >
+                        View all
+                      </button>
+                      {showDoctorsList && (
+                        <div className="none fixed z-50 left-0 top-0 w-full h-full items-center justify-center bg-slate-200">
+                          <div className="bg-gray-200 p-[20px] rounded-lg">
+                            <DoctorsList close={() => setShowDoctorsList(false)} />
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <div className="py-5">
                     {doctorInfo.map((doctor, index) => (
@@ -195,11 +221,17 @@ const Patient = () => {
                             </span>
                           </div>
                         </div>
-                        <span className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-full">
+                         {/* TODO: Add booking functionality */}
+                        {/* <span className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-full">
                           Book
-                        </span>
+                        </span> */}
+                        <button key={index} onClick={() => handleBookClick(doctor)}>Book
+                        </button>
                       </div>
                     ))}
+                    {showBookingForm && (
+                      <BookingForm doctor={selectedDoctor} onSubmit={handleFormSubmit} />
+                    )}
                   </div>
                 </div>
               </div>
@@ -213,7 +245,7 @@ const Patient = () => {
                 </div>
                 {/* 2nd */}
                 <div className="rounded-xl p-4 w-1/3">
-                  <div className="relative h-100">
+                  <div className="relative">
                     <img
                       src="/assets/images/patient_booking.png"
                       className="relative object-contain"
