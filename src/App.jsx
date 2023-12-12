@@ -9,14 +9,6 @@ import Patient from "./pages/Patient";
 
 const App = () => {
 
-   return (
-      <>
-         <h1 className="text-3xl font-bold text-green-400 underline">
-            Hello world!
-         </h1>
-      </>
-   );
-
   const { web5, did } = useContext(Web5Context);
 
   console.log("web5 : ", web5);
