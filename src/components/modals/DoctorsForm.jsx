@@ -40,17 +40,9 @@ export default function DoctorsForm({ userType, closeModal }) {
 
       // Send to public and private did
       const DIDs = [did, publicDid];
-      // const statuses = await Promise.all(
-      //   DIDs.map(async (did) => {
-      //     const { status } = await record.send(did);
-      //     return status;
-      //   })
-      // );
       await Promise.all(
         DIDs.map(async (did) => {
           await record.send(did);
-          // const { status } = await record.send(did);
-          // return status;
         })
       );
       console.log("Profile sent");
