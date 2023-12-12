@@ -16,7 +16,7 @@ const handleSubmit = async (e) => {
       appointmentDate,
     });
     // Create a new booking record
-    const { record } = await web5.dwn.records.write({
+    const { record, status } = await web5.dwn.records.write({
        data: {
           patientDID,
           symptoms,
@@ -30,14 +30,16 @@ const handleSubmit = async (e) => {
         published: true,
       },
     });
-        console.log('record.send(did)', record);
+        console.log('record, status', {record, status});
         await record.send(did);
+        console.log("success")
+        console.log(status.code)
 
-    if (record.status.code === 200) {
-      console.log('Booking successful');
-    } else {
-      console.error('Error booking appointment:', record.status);
-    }
+    // if (status.code === 200) {
+    //   console.log('Booking successful');
+    // } else {
+    //   console.error('Error booking appointment:', status.code);
+    // }
   } catch (error) {
     console.error('Error booking appointment:', error);
   }
