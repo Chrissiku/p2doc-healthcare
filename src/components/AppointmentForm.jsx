@@ -30,16 +30,10 @@ const handleSubmit = async (e) => {
         published: true,
       },
     });
-        console.log('record, status', {record, status});
+
         await record.send(did);
         console.log("success")
-        console.log(status.code)
 
-    // if (status.code === 200) {
-    //   console.log('Booking successful');
-    // } else {
-    //   console.error('Error booking appointment:', status.code);
-    // }
   } catch (error) {
     console.error('Error booking appointment:', error);
   }
