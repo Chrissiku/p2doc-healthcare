@@ -1,11 +1,32 @@
+/* eslint-disable react/prop-types */
 import "../index.css";
-import { specialistData } from "./specialistsData";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import avatar from "/assets/avatar.svg";
+import { useContext } from "react";
+import { Web5Context } from "../utils/Web5Context";
 
-const Specialists = () => {
+const Specialists = ({ specialistData }) => {
+  const { loadingDoctor } = useContext(Web5Context);
+
+  if (specialistData.length === 0) {
+    const randomMessages = [
+      "No specialists available at the moment.",
+      "Check back later for updated specialist information.",
+      "We're sorry, no specialists found for your search.",
+    ];
+    const randomMessage =
+      randomMessages[Math.floor(Math.random() * randomMessages.length)];
+
+    return (
+      <div className="mx-auto w-full text-center text-[30px] bg-red-200 text-black py-20">
+        <p>{loadingDoctor ? <>Loading . . .</> : randomMessage}</p>{" "}
+      </div>
+    );
+  }
+
   return (
     <div className="my-[100px]">
       <h2 className="ml-[84px] font-poppins font-semibold text-5xl">
@@ -40,23 +61,23 @@ const Specialists = () => {
           modules={[Autoplay, Pagination, Navigation]}
           className="mySwiper"
         >
-          {specialistData.map((specialist) => {
+          {specialistData.map((specialist, index) => {
             return (
               <SwiperSlide
                 className="border border-[#41CBE2] shadow-lg rounded-xl bg-[#ecfafc] p-3 text-center font-light"
-                key={specialist.id}
+                key={index}
               >
                 <img
                   className="mx-auto mb-5"
-                  src={specialist.img}
+                  src={avatar}
                   alt={specialist.name}
                 />
                 <p>{specialist.name}</p>
                 <p className="font-medium uppercase text-lg">
                   {specialist.specialty}
                 </p>
-                <p>{specialist.email}</p>
-                <p>${specialist.rate}</p>
+                <p>test@gmail.com</p>
+                <p>$200</p>
               </SwiperSlide>
             );
           })}

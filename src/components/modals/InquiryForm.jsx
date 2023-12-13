@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function InquiryModal() {
    return (
       <div className="fixed inset-0 flex items-center justify-center backdrop-blur-2xl">
@@ -6,12 +8,12 @@ export default function InquiryModal() {
                Who are you?
             </div>
             <div className="flex justify-center gap-8">
-               <button className=" hover:bg-sky-300 duration-300 transition-colors ease-in-out bg-sky-400  text-black text-lg font-normal font-['Inter'] w-28 h-12 rounded-full">
+               <Link to="/doctor-form" className=" hover:bg-sky-300 duration-300 transition-colors ease-in-out bg-sky-400  text-black text-lg font-normal font-['Inter'] w-28 h-12 rounded-full">
                   Doctor
-               </button>
-               <button className="hover:bg-sky-300 duration-300 transition-colors ease-in-out bg-sky-400 text-black text-lg font-normal font-['Inter'] w-28 h-12 rounded-full">
+               </Link>
+               <Link to="/patient-form" className="hover:bg-sky-300 duration-300 transition-colors ease-in-out bg-sky-400 text-black text-lg font-normal font-['Inter'] w-28 h-12 rounded-full">
                   Patient
-               </button>
+               </Link>
             </div>
          </div>
       </div>

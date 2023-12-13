@@ -14,8 +14,136 @@ import Profile from "../assets/hero.png";
 import Layer from "../assets/layer.png";
 import { Link } from "react-router-dom";
 import Calendar from "../components/Calendar";
+import { useContext, useEffect, useState } from "react";
+import { Web5Context } from "../utils/Web5Context";
+import IssueRecordModal from "../components/IssueRecord";
 
 const Doctor = () => {
+  const { web5, did, setUserType, protocolDefinition } = useContext(
+    Web5Context
+  );
+  const [doctorData, setDoctorData] = useState([]);
+  const [appointmentData, setAppointmentData] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [patientData, setPatientData] = useState([]);
+  const [patientDid, setPatientDid] = useState("");
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log("Fetching doctor Profile");
+        const response = await web5.dwn.records.query({
+          from: did,
+          message: {
+            filter: {
+              protocol: protocolDefinition.protocol,
+              schema: protocolDefinition.types.doctorProfile.schema,
+            },
+          },
+        });
+
+        if (response.status.code === 200) {
+          const doctorProfile = await Promise.all(
+            response.records.map(async (record) => {
+              const data = await record.data.json();
+              return {
+                ...data,
+                recordId: record.id,
+              };
+            })
+          );
+          setDoctorData(doctorProfile[doctorProfile.length - 1]);
+          return doctorProfile;
+        } else {
+          console.error("error fetching this profile", response.status);
+          return [];
+        }
+      } catch (error) {
+        console.error("error fetching patient profile :", error);
+      }
+    };
+
+    const fetchAppointment = async () => {
+      try {
+        console.log("Fetching doctor Profile");
+        const response = await web5.dwn.records.query({
+          // from: did,
+          message: {
+            filter: {
+              protocol: protocolDefinition.protocol,
+              schema: protocolDefinition.types.bookAppointment.schema,
+              protocolPath: "bookAppointment",
+            },
+          },
+        });
+
+        if (response.status.code === 200) {
+          const data = await Promise.all(
+            response.records.map(async (record) => {
+              const data = await record.data.json();
+              return {
+                ...data,
+                recordId: record.id,
+              };
+            })
+          );
+          setAppointmentData(data);
+          return data;
+        } else {
+          console.error("error fetching this profile", response.status);
+          return [];
+        }
+      } catch (error) {
+        console.error("error fetching patient profile :", error);
+      }
+    };
+
+    fetchData();
+    fetchAppointment();
+  }, []);
+
+  const handleOpenModal = (data) => {
+    setPatientData(data);
+    setPatientDid(data.patientDID);
+    openModal();
+  };
+
+  const formatDate = (sting) => {
+    const date = new Date(sting); // Replace with your actual date and time
+
+    const options = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    };
+
+    const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
+      date
+    );
+    return formattedDate;
+  };
+
+  appointmentData.sort((a, b) => {
+    const dateA = new Date(a.appointmentDate);
+    const dateB = new Date(b.appointmentDate);
+
+    return dateA - dateB;
+  });
+
+  // console.log(appointmentData);
+  // console.log(patientDid)
+
   return (
     <div className="w-full mx-auto bg-og-blue p-5">
       <div className="w-full mx-auto flex flex-row items-start justify-center space-x-5">
@@ -29,13 +157,15 @@ const Doctor = () => {
               <Squares2X2Icon className="h-8 w-8" />
             </div>
 
-            <div
+            <button
+              type="button"
+              onClick={() => setUserType(null)}
               className="p-3 hover:bg-[#fff9] rounded-lg text-white 
             hover:text-olive-green transition-all duration-300"
             >
-              <span className="sr-only">menu</span>
+              <span className="sr-only">logout</span>
               <ArrowLeftOnRectangleIcon className="h-8 w-8" />
-            </div>
+            </button>
           </div>
         </aside>
         <div className="flex-1 mx-auto bg-[#f7f7f7] rounded-[60px] px-10 py-7">
@@ -64,6 +194,7 @@ const Doctor = () => {
                         className="block w-full p-4 ps-10 border-gray-300 rounded-lg bg-[#e5e5e5] outline-none"
                         placeholder="Search ..."
                         required
+                        name="search"
                       />
                     </div>
                   </form>
@@ -83,7 +214,9 @@ const Doctor = () => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <span className="text-[16px] font-medium">Dr. Azmat</span>
+                  <span className="text-[16px] font-medium">
+                    Dr. {doctorData.name}
+                  </span>
                 </div>
               </div>
             </nav>
@@ -92,19 +225,9 @@ const Doctor = () => {
                 <h2 className="text-[36px] font-normal">
                   Welcome{" "}
                   <span className="text-olive-green font-bold">
-                    Dr. Azmat !
+                    Dr. {doctorData.name} !
                   </span>
                 </h2>
-                <button
-                  type="button"
-                  className="inline-flex space-x-2 px-5 py-3 items-center justify-center border-2 border-og-blue rounded-2xl"
-                >
-                  <span className="sr-only">Add new issue record</span>
-                  <span className="text-og-blue ">
-                    <PlusCircleIcon className="h-8 w-8" />
-                  </span>
-                  <span className="text-[20px] font-normal">Issue record</span>
-                </button>
               </div>
               <div className="w-full space-y-[30px]">
                 <div className="w-full flex flex-row items-start justify-between space-x-20">
@@ -114,7 +237,7 @@ const Doctor = () => {
                       <div className="bg-white rounded-xl p-4 ">
                         <h3 className="text-[20px] font-medium">DID</h3>
                         <div className="text-[#9e9e9e] inline-flex space-x-3 items-center justify-between">
-                          <span>EiArQgMv...UXpnIn19</span>
+                          <span>{did.slice(0, 8) + "" + did.slice(-8)}</span>
                           <button type="button">
                             <DocumentDuplicateIcon className="h-5 w-5" />
                           </button>
@@ -134,7 +257,7 @@ const Doctor = () => {
                             Speciality
                           </h3>
                           <div className="text-[#9e9e9e] inline-flex space-x-3 items-center justify-between">
-                            <span>Neurology</span>
+                            <span>{doctorData.speciality}</span>
                           </div>
                         </div>
                       </div>
@@ -156,7 +279,7 @@ const Doctor = () => {
                             Incoming Request
                           </span>
                           <span className="text-[#f39f9f] shadow drop-shadow-xl px-3 py-1 text-center rounded-md">
-                            22
+                            {appointmentData.length}
                           </span>
                         </h3>
                         <Link
@@ -183,7 +306,7 @@ const Doctor = () => {
                             Recently Booked Appointments
                           </span>
                           <span className="bg-white text-og-blue shadow drop-shadow-xl px-3 py-1 text-center rounded-md">
-                            3
+                            {appointmentData.length}
                           </span>
                         </h3>
                         <Link
@@ -193,53 +316,52 @@ const Doctor = () => {
                           View all
                         </Link>
                       </div>
-                      <div className="w-full px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
-                        <san
-                          className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
+                      <div
+                        className="flex flex-col items-center justify-between space-y-3 max-h-[250px] 
+                      overflow-hidden overflow-y-scroll p-2 drop-shadow-md"
+                      >
+                        {appointmentData.map((data, index) => (
+                          <div
+                            key={index}
+                            className="w-full px-5 py-3 bg-white rounded-xl flex items-center justify-between "
+                          >
+                            <div className="inline-flex items-center justify-start space-x-3">
+                              <span
+                                className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
                         items-center justify-center rounded-full"
-                        >
-                          P
-                        </san>
-                        <div>
-                          <h4 className="text-[16px] text-black">
-                            Patient Rounds
-                          </h4>
-                          <spam className="text-[12px] text-[#0d0d0d60]">
-                            25 Jan, 2023 | 04:00 PM
-                          </spam>
-                        </div>
-                      </div>
-                      <div className="w-full px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
-                        <san
-                          className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
-                        items-center justify-center rounded-full"
-                        >
-                          L
-                        </san>
-                        <div>
-                          <h4 className="text-[16px] text-black">
-                            Laboratory test results review
-                          </h4>
-                          <spam className="text-[12px] text-[#0d0d0d60]">
-                            25 Jan, 2023 | 04:00 PM
-                          </spam>
-                        </div>
-                      </div>
-                      <div className="w-full px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
-                        <san
-                          className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
-                        items-center justify-center rounded-full"
-                        >
-                          S
-                        </san>
-                        <div>
-                          <h4 className="text-[16px] text-black">
-                            Surgical procedures
-                          </h4>
-                          <spam className="text-[12px] text-[#0d0d0d60]">
-                            25 Jan, 2023 | 04:00 PM
-                          </spam>
-                        </div>
+                              >
+                                P
+                              </span>
+                              <div className="flex flex-col">
+                                <h4 className="text-[16px] text-black">
+                                  Patient Rounds
+                                </h4>
+                                <span className="text-[12px] text-[#0d0d0d60]">
+                                  {data.symptoms}
+                                </span>
+                                <span className="text-[12px] text-[#0d0d0d60]">
+                                  {formatDate(data.appointmentDate)}
+                                </span>
+                              </div>
+                            </div>
+                            <button
+                              onClick={() => handleOpenModal(data)}
+                              type="button"
+                              className="hover:bg-og-blue hover:text-white inline-flex space-x-2 px-2 py-2 items-center 
+                              justify-center border-2 border-og-blue rounded-xl transition-all duration-200 ease-linear"
+                            >
+                              <span className="sr-only">
+                                Add new issue record
+                              </span>
+                              <span className=" ">
+                                <PlusCircleIcon className="h-4 w-4" />
+                              </span>
+                              <span className="text-[14px] font-normal pe-2">
+                                Issue record
+                              </span>
+                            </button>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -254,19 +376,23 @@ const Doctor = () => {
                     </div>
 
                     <div className="w-full px-5 py-3 bg-olive-green rounded-xl inline-flex items-center justify-start space-x-3">
-                      <san
+                      <span
                         className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
                         items-center justify-center rounded-full"
                       >
                         S
-                      </san>
+                      </span>
                       <div>
                         <h4 className="text-[16px] text-white">
-                          Surgical procedure
+                          {appointmentData.length > 0
+                            ? appointmentData[0].symptoms
+                            : "null"}
                         </h4>
-                        <spam className="text-[12px] text-[#f0f0f060]">
-                          30 Jan, 2023 | 04:00 PM
-                        </spam>
+                        <span className="text-[12px] text-[#f0f0f060]">
+                          {appointmentData.length > 0
+                            ? formatDate(appointmentData[0].appointmentDate)
+                            : "null"}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -316,6 +442,13 @@ const Doctor = () => {
           </div>
         </div>
       </div>
+      <IssueRecordModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        openModal={openModal}
+        data={patientData}
+        patientDid={patientDid}
+      />
     </div>
   );
 };

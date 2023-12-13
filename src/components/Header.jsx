@@ -1,11 +1,11 @@
 import Hero from "./Hero";
 import NavBar from "./NavBar";
 
-const Header = () => {
+const Header = ({ openModal }) => {
   return (
     <div className="w-full mx-auto px-[70px]">
-      <NavBar />
-      <Hero />
+      <NavBar openModal={openModal} />
+      <Hero openModal={openModal} />
     </div>
   );
 };
