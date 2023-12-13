@@ -6,7 +6,7 @@ const Services = () => {
         return (
             <div className="relative pl-16" key={service.title}>
                 <dt className="text-base font-semibold leading-7 text-gray-900">
-                    <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                    <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg">
                         <img src={service.image} alt={service.title} />
                     </div>
                     {service.title}
