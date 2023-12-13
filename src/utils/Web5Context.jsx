@@ -35,7 +35,6 @@ const ContextProvider = ({ children }) => {
     },
   };
 
-  console.log(import.meta.env.VITE_PROTOCOL_URL)
 
   const protocolDefinition = {
     protocol: import.meta.env.VITE_PROTOCOL_URL,
