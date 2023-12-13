@@ -39,7 +39,7 @@ const Doctor = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Fetching doctor Profile");
+        // console.log("Fetching doctor Profile");
         const response = await web5.dwn.records.query({
           from: did,
           message: {
@@ -73,7 +73,7 @@ const Doctor = () => {
 
     const fetchAppointment = async () => {
       try {
-        console.log("Fetching doctor Profile");
+        // console.log("Fetching doctor Profile");
         const response = await web5.dwn.records.query({
           // from: did,
           message: {

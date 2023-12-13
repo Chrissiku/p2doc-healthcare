@@ -99,7 +99,7 @@ const ContextProvider = ({ children }) => {
   useEffect(() => {
     const installProtocol = async () => {
       try {
-        console.log("Installing protocol ...");
+        // console.log("Installing protocol ...");
         const { protocol, status } = await web5.dwn.protocols.configure({
           message: {
             definition: protocolDefinition,
@@ -107,7 +107,7 @@ const ContextProvider = ({ children }) => {
         });
 
         await protocol.send(did);
-        console.log("Protocol installed and sent successfully . . .");
+        // console.log("Protocol installed and sent successfully . . .");
       } catch (error) {
         console.error("Error Installing Protocol : ", error);
       }
@@ -169,7 +169,7 @@ const ContextProvider = ({ children }) => {
               };
             })
           );
-          // console.log(usersProfile)
+          // // console.log(usersProfile)
           setUsers(usersProfile);
           setLoadingDoctor(false);
           return usersProfile;
@@ -189,7 +189,7 @@ const ContextProvider = ({ children }) => {
     }
   }, [web5, did]);
 
-  console.log("user : ", users);
+  // console.log("user : ", users);
 
   function doesDidExist(id, array) {
     return array.some((item) => item.did === id);
@@ -198,7 +198,7 @@ const ContextProvider = ({ children }) => {
   const didExist = doesDidExist(did, users);
 
   const saveUser = async (doctor, patient) => {
-    console.log("Saving User ...");
+    // console.log("Saving User ...");
 
     try {
       const userData = { did: did, doctor: doctor, patient: patient };
@@ -212,12 +212,12 @@ const ContextProvider = ({ children }) => {
           published: true,
         },
       });
-      console.log("user Created : ", { record, status });
+      // console.log("user Created : ", { record, status });
 
       // Send to public and private did
       await record.send(publicDid);
 
-      console.log("user sent");
+      // console.log("user sent");
     } catch (error) {
       console.error("Error Creating user user : ", error);
     }
