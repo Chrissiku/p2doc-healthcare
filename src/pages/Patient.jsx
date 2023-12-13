@@ -297,7 +297,6 @@ const Patient = () => {
                 </div>
               </div>
             </div>
-
             <div className="w-full inline-flex item-center justify-between gap-x-16">
               <div className="bg-[#FFFFFF] rounded-xl p-4 w-2/5">
                 <div className="bg-white rounded-xl p-4">
