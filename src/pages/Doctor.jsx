@@ -16,13 +16,25 @@ import { Link } from "react-router-dom";
 import Calendar from "../components/Calendar";
 import { useContext, useEffect, useState } from "react";
 import { Web5Context } from "../utils/Web5Context";
+import IssueRecordModal from "../components/IssueRecord";
 
 const Doctor = () => {
   const { web5, did, setUserType, protocolDefinition } = useContext(
     Web5Context
   );
-
   const [doctorData, setDoctorData] = useState([]);
+  const [appointmentData, setAppointmentData] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [patientData, setPatientData] = useState([]);
+  const [patientDid, setPatientDid] = useState("");
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,10 +71,78 @@ const Doctor = () => {
       }
     };
 
+    const fetchAppointment = async () => {
+      try {
+        console.log("Fetching doctor Profile");
+        const response = await web5.dwn.records.query({
+          // from: did,
+          message: {
+            filter: {
+              protocol: protocolDefinition.protocol,
+              schema: protocolDefinition.types.bookAppointment.schema,
+              protocolPath: "bookAppointment",
+            },
+          },
+        });
+
+        if (response.status.code === 200) {
+          const data = await Promise.all(
+            response.records.map(async (record) => {
+              const data = await record.data.json();
+              return {
+                ...data,
+                recordId: record.id,
+              };
+            })
+          );
+          setAppointmentData(data);
+          return data;
+        } else {
+          console.error("error fetching this profile", response.status);
+          return [];
+        }
+      } catch (error) {
+        console.error("error fetching patient profile :", error);
+      }
+    };
+
     fetchData();
+    fetchAppointment();
   }, []);
 
-  console.log(doctorData);
+  const handleOpenModal = (data) => {
+    setPatientData(data);
+    setPatientDid(data.patientDID);
+    openModal();
+  };
+
+  const formatDate = (sting) => {
+    const date = new Date(sting); // Replace with your actual date and time
+
+    const options = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    };
+
+    const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
+      date
+    );
+    return formattedDate;
+  };
+
+  appointmentData.sort((a, b) => {
+    const dateA = new Date(a.appointmentDate);
+    const dateB = new Date(b.appointmentDate);
+
+    return dateA - dateB;
+  });
+
+  // console.log(appointmentData);
+  // console.log(patientDid)
 
   return (
     <div className="w-full mx-auto bg-og-blue p-5">
@@ -114,6 +194,7 @@ const Doctor = () => {
                         className="block w-full p-4 ps-10 border-gray-300 rounded-lg bg-[#e5e5e5] outline-none"
                         placeholder="Search ..."
                         required
+                        name="search"
                       />
                     </div>
                   </form>
@@ -147,16 +228,6 @@ const Doctor = () => {
                     Dr. {doctorData.name} !
                   </span>
                 </h2>
-                <button
-                  type="button"
-                  className="inline-flex space-x-2 px-5 py-3 items-center justify-center border-2 border-og-blue rounded-2xl"
-                >
-                  <span className="sr-only">Add new issue record</span>
-                  <span className="text-og-blue ">
-                    <PlusCircleIcon className="h-8 w-8" />
-                  </span>
-                  <span className="text-[20px] font-normal">Issue record</span>
-                </button>
               </div>
               <div className="w-full space-y-[30px]">
                 <div className="w-full flex flex-row items-start justify-between space-x-20">
@@ -208,7 +279,7 @@ const Doctor = () => {
                             Incoming Request
                           </span>
                           <span className="text-[#f39f9f] shadow drop-shadow-xl px-3 py-1 text-center rounded-md">
-                            22
+                            {appointmentData.length}
                           </span>
                         </h3>
                         <Link
@@ -235,7 +306,7 @@ const Doctor = () => {
                             Recently Booked Appointments
                           </span>
                           <span className="bg-white text-og-blue shadow drop-shadow-xl px-3 py-1 text-center rounded-md">
-                            3
+                            {appointmentData.length}
                           </span>
                         </h3>
                         <Link
@@ -245,53 +316,52 @@ const Doctor = () => {
                           View all
                         </Link>
                       </div>
-                      <div className="w-full px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
-                        <span
-                          className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
+                      <div
+                        className="flex flex-col items-center justify-between space-y-3 max-h-[250px] 
+                      overflow-hidden overflow-y-scroll p-2 drop-shadow-md"
+                      >
+                        {appointmentData.map((data, index) => (
+                          <div
+                            key={index}
+                            className="w-full px-5 py-3 bg-white rounded-xl flex items-center justify-between "
+                          >
+                            <div className="inline-flex items-center justify-start space-x-3">
+                              <span
+                                className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
                         items-center justify-center rounded-full"
-                        >
-                          P
-                        </span>
-                        <div>
-                          <h4 className="text-[16px] text-black">
-                            Patient Rounds
-                          </h4>
-                          <span className="text-[12px] text-[#0d0d0d60]">
-                            25 Jan, 2023 | 04:00 PM
-                          </span>
-                        </div>
-                      </div>
-                      <div className="w-full px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
-                        <span
-                          className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
-                        items-center justify-center rounded-full"
-                        >
-                          L
-                        </span>
-                        <div>
-                          <h4 className="text-[16px] text-black">
-                            Laboratory test results review
-                          </h4>
-                          <span className="text-[12px] text-[#0d0d0d60]">
-                            25 Jan, 2023 | 04:00 PM
-                          </span>
-                        </div>
-                      </div>
-                      <div className="w-full px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3">
-                        <span
-                          className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
-                        items-center justify-center rounded-full"
-                        >
-                          S
-                        </span>
-                        <div>
-                          <h4 className="text-[16px] text-black">
-                            Surgical procedures
-                          </h4>
-                          <span className="text-[12px] text-[#0d0d0d60]">
-                            25 Jan, 2023 | 04:00 PM
-                          </span>
-                        </div>
+                              >
+                                P
+                              </span>
+                              <div className="flex flex-col">
+                                <h4 className="text-[16px] text-black">
+                                  Patient Rounds
+                                </h4>
+                                <span className="text-[12px] text-[#0d0d0d60]">
+                                  {data.symptoms}
+                                </span>
+                                <span className="text-[12px] text-[#0d0d0d60]">
+                                  {formatDate(data.appointmentDate)}
+                                </span>
+                              </div>
+                            </div>
+                            <button
+                              onClick={() => handleOpenModal(data)}
+                              type="button"
+                              className="hover:bg-og-blue hover:text-white inline-flex space-x-2 px-2 py-2 items-center 
+                              justify-center border-2 border-og-blue rounded-xl transition-all duration-200 ease-linear"
+                            >
+                              <span className="sr-only">
+                                Add new issue record
+                              </span>
+                              <span className=" ">
+                                <PlusCircleIcon className="h-4 w-4" />
+                              </span>
+                              <span className="text-[14px] font-normal pe-2">
+                                Issue record
+                              </span>
+                            </button>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -314,10 +384,14 @@ const Doctor = () => {
                       </span>
                       <div>
                         <h4 className="text-[16px] text-white">
-                          Surgical procedure
+                          {appointmentData.length > 0
+                            ? appointmentData[0].symptoms
+                            : "null"}
                         </h4>
                         <span className="text-[12px] text-[#f0f0f060]">
-                          30 Jan, 2023 | 04:00 PM
+                          {appointmentData.length > 0
+                            ? formatDate(appointmentData[0].appointmentDate)
+                            : "null"}
                         </span>
                       </div>
                     </div>
@@ -368,6 +442,13 @@ const Doctor = () => {
           </div>
         </div>
       </div>
+      <IssueRecordModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        openModal={openModal}
+        data={patientData}
+        patientDid={patientDid}
+      />
     </div>
   );
 };

@@ -34,7 +34,7 @@ const Patient = () => {
 
   const handleFormSubmit = () => {
     setShowBookingForm(false);
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -185,7 +185,9 @@ const Patient = () => {
                       {showDoctorsList && (
                         <div className="none fixed z-50 left-0 top-0 w-full h-full items-center justify-center bg-slate-200">
                           <div className="bg-gray-200 p-[20px] rounded-lg">
-                            <DoctorsList close={() => setShowDoctorsList(false)} />
+                            <DoctorsList
+                              close={() => setShowDoctorsList(false)}
+                            />
                           </div>
                         </div>
                       )}
