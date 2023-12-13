@@ -95,7 +95,6 @@ export default function DoctorsForm({ userType, closeModal }) {
             className="w-[410px] h-[53px] px-5 bg-white rounded-2xl border border-sky-400"
           />
         </div>
-
         <div className="flex flex-col gap-[17px] pb-8">
           <label
             htmlFor="experience"
