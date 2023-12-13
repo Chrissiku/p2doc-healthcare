@@ -59,5 +59,13 @@ This website's users are doctors and patients. at the homepage of our website at
 
 When a user click on the 'Get Started' button, this prompts the user to select who the user is (doctor | patient | neither)
 
-**User as a doctor:** when a user selects doctor, he or she is prompted for name, speciality, and year of experience.
+**User as a doctor:** when a user selects doctor, he or she is prompted for name, speciality, and year of experience. After supplying all of those, the doctor gets connected to the DWA. Therefore, on the doctor dashboard the following operations or features can be carried out by the doctor.
+
+- View the incoming requests from onboarded patients.
+
+- Accept or Reject incoming requests
+
+- View the recently booked appointment
+
+- 
 
