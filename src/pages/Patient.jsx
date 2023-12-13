@@ -40,7 +40,7 @@ const Patient = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Fetching patient Profile");
+        // console.log("Fetching patient Profile");
         const response = await web5.dwn.records.query({
           from: did,
           message: {
@@ -74,7 +74,7 @@ const Patient = () => {
 
     const fetchMedicalRecord = async () => {
       try {
-        console.log("Fetching patient Profile");
+        // console.log("Fetching patient Profile");
         const response = await web5.dwn.records.query({
           from: did,
           message: {
@@ -95,7 +95,7 @@ const Patient = () => {
               };
             })
           );
-          console.log("medical record : ", medicalRec);
+          // console.log("medical record : ", medicalRec);
           setMedicalData(medicalRec);
           return medicalRec;
         } else {
@@ -136,7 +136,7 @@ const Patient = () => {
     }
   };
 
-  console.log("Medical record : ", medicalData);
+  // console.log("Medical record : ", medicalData);
 
   return (
     <div className="w-full mx-auto bg-og-blue p-5">

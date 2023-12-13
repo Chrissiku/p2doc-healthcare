@@ -23,7 +23,7 @@ const App = () => {
 
   useEffect(() => {
     if (did) {
-      console.log("The DID : ", did.slice(0, 8) + "..." + did.slice(-5));
+      console.log("The DID : ", did);
     }
   }, [did, userType]);
 

@@ -29,7 +29,7 @@ export default function PatientsForm({ userType, closeModal }) {
   };
 
   const createPatient = async () => {
-    console.log("Creating Patient Profile ...");
+    // console.log("Creating Patient Profile ...");
     try {
       const { record, status } = await web5.dwn.records.write({
         data: formState,
@@ -40,9 +40,9 @@ export default function PatientsForm({ userType, closeModal }) {
           recipient: did,
         },
       });
-      console.log("Profile Created : ", { record, status });
+      // console.log("Profile Created : ", { record, status });
       await record.send(did);
-      console.log("Profile sent");
+      // console.log("Profile sent");
     } catch (error) {
       console.error("Error Creating patient data : ", error);
     }

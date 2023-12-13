@@ -13,11 +13,6 @@ const BookingForm = ({ doctorDid }) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      console.log("Data to be sent:", {
-        doctorDid,
-        symptoms,
-        appointmentDate,
-      });
       // Create a new booking record
       const { record, status } = await web5.dwn.records.write({
         data: {
@@ -34,7 +29,7 @@ const BookingForm = ({ doctorDid }) => {
           published: true,
         },
       });
-      console.log("record, status", { record, status });
+    
       await record.send(did);
       setMessage("Appointment booked successfully");
       setTimeout(() => {
@@ -42,8 +37,7 @@ const BookingForm = ({ doctorDid }) => {
       }, 5000);
       setSymptoms("");
       setAppointmentDate("");
-      console.log("success");
-      console.log(status.code);
+
     } catch (error) {
       console.error("Error booking appointment:", error);
     }
