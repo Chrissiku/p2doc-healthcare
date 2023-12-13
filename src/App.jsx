@@ -1,33 +1,48 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { Web5Context } from "./utils/Web5Context";
 import Home from "./pages/Home";
 import Doctor from "./pages/Doctor";
 import { Routes, Route } from "react-router-dom";
 import Patient from "./pages/Patient";
+import MyModal from "./components/Modal";
 
 const App = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
-   return (
-      <>
-         <h1 className="text-3xl font-bold text-green-400 underline">
-            Hello world!
-         </h1>
-      </>
-   );
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
-  const { web5, did } = useContext(Web5Context);
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
-  console.log("web5 : ", web5);
-  console.log("Did : ", did);
+  const { did, userType } = useContext(Web5Context);
+
+  useEffect(() => {
+    if (did) {
+      console.log("The DID : ", did.slice(0, 8) + "..." + did.slice(-5));
+    }
+  }, [did, userType]);
+
+  const DashboardComponent =
+    userType === "doctor" ? Doctor : userType === "patient" ? Patient : Home;
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/doctor" element={<Doctor />} />
-        <Route path="/patient" element={<Patient />} />
+        <Route
+          path="/"
+          element={<DashboardComponent openModal={openModal} />}
+        />
+        {/* <Route
+          path="/dashboard"
+          element={<DashboardComponent openModal={openModal} />}
+        /> */}
       </Routes>
+      <MyModal isOpen={isOpen} closeModal={closeModal} openModal={openModal} />
     </>
   );
 };
