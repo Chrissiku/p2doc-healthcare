@@ -22,15 +22,17 @@ const Patient = () => {
   const [showDoctorsList, setShowDoctorsList] = useState(false);
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [recipientDid, setRecipientDid] = useState("");
 
   const handleBookClick = (doctor) => {
     setSelectedDoctor(doctor);
     setShowBookingForm(true);
-  }
+    setRecipientDid(doctor.did)
+  };
 
   const handleFormSubmit = () => {
     setShowBookingForm(false);
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -193,7 +195,9 @@ const Patient = () => {
                       {showDoctorsList && (
                         <div className="none fixed z-50 left-0 top-0 w-full h-full items-center justify-center bg-slate-200">
                           <div className="bg-gray-200 p-[20px] rounded-lg">
-                            <DoctorsList close={() => setShowDoctorsList(false)} />
+                            <DoctorsList
+                              close={() => setShowDoctorsList(false)}
+                            />
                           </div>
                         </div>
                       )}
@@ -221,16 +225,24 @@ const Patient = () => {
                             </span>
                           </div>
                         </div>
-                         {/* TODO: Add booking functionality */}
+                        {/* TODO: Add booking functionality */}
                         {/* <span className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-full">
                           Book
                         </span> */}
-                        <button key={index} onClick={() => handleBookClick(doctor)}>Book
+                        <button
+                          key={index}
+                          onClick={() => handleBookClick(doctor)}
+                        >
+                          Book
                         </button>
                       </div>
                     ))}
                     {showBookingForm && (
-                      <BookingForm doctor={selectedDoctor} onSubmit={handleFormSubmit} />
+                      <BookingForm
+                        doctorDid={recipientDid}
+                        doctor={selectedDoctor}
+                        onSubmit={handleFormSubmit}
+                      />
                     )}
                   </div>
                 </div>

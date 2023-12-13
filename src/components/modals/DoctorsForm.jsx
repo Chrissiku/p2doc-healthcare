@@ -95,23 +95,6 @@ export default function DoctorsForm({ userType, closeModal }) {
             className="w-[410px] h-[53px] px-5 bg-white rounded-2xl border border-sky-400"
           />
         </div>
-        {/* <div className="flex flex-col gap-[17px] pb-7">
-          <label
-            className="mb-2 text-lg font-normal text-black"
-            htmlFor="user_avatar"
-          >
-            Upload file
-          </label>
-          <input
-            className="w-full py-2 text-lg text-black border border-sky-400 rounded-2xl cursor-pointer bg-white "
-            aria-describedby="user_avatar_help"
-            id="avatar"
-            name="avatar"
-            // value={formState.avatar}
-            onChange={handleImageChange}
-            type="file"
-          />
-        </div> */}
 
         <div className="flex flex-col gap-[17px] pb-8">
           <label

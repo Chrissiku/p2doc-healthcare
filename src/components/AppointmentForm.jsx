@@ -1,24 +1,26 @@
 import { useState, useContext } from "react";
 import { Web5Context } from "../utils/Web5Context";
 
-const BookingForm = () => {
+const BookingForm = ({ doctorDid }) => {
   const { web5, did, protocolDefinition } = useContext(Web5Context);
   const [patientDID, setPatientDID] = useState("");
   const [symptoms, setSymptoms] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
 
+  console.log("Doctor Did : ", doctorDid);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       console.log("Data to be sent:", {
-        patientDID,
+        doctorDid,
         symptoms,
         appointmentDate,
       });
       // Create a new booking record
       const { record, status } = await web5.dwn.records.write({
         data: {
-          patientDID,
+          doctorDid,
           symptoms,
           appointmentDate,
         },
@@ -26,7 +28,7 @@ const BookingForm = () => {
           protocol: protocolDefinition.protocol,
           protocolPath: "bookAppointment",
           schema: protocolDefinition.types.bookAppointment.schema,
-          recipient: did,
+          recipient: doctorDid,
           published: true,
         },
       });
@@ -51,15 +53,15 @@ const BookingForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      {/* <div>
         <label>Patient DID:</label>
         <input
           type="text"
-          value={patientDID}
-          onChange={(e) => setPatientDID(e.target.value)}
+          value={doctorDid}
+          // onChange={(e) => setPatientDID(e.target.value)}
           required
         />
-      </div>
+      </div> */}
       <div>
         <label>Symptoms:</label>
         <textarea

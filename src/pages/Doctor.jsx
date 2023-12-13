@@ -16,14 +16,25 @@ import { Link } from "react-router-dom";
 import Calendar from "../components/Calendar";
 import { useContext, useEffect, useState } from "react";
 import { Web5Context } from "../utils/Web5Context";
+import IssueRecordModal from "../components/IssueRecord";
 
 const Doctor = () => {
   const { web5, did, setUserType, protocolDefinition } = useContext(
     Web5Context
   );
-
   const [doctorData, setDoctorData] = useState([]);
   const [appointmentData, setAppointmentData] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [patientData, setPatientData] = useState([]);
+  const [patientDid, setPatientDid] = useState("");
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -99,8 +110,11 @@ const Doctor = () => {
     fetchAppointment();
   }, []);
 
-  // console.log(doctorData);
-  console.log(appointmentData);
+  const handleOpenModal = (data) => {
+    setPatientData(data);
+    setPatientDid(data.patientDID);
+    openModal();
+  };
 
   const formatDate = (sting) => {
     const date = new Date(sting); // Replace with your actual date and time
@@ -126,6 +140,9 @@ const Doctor = () => {
 
     return dateA - dateB;
   });
+
+  // console.log(appointmentData);
+  // console.log(patientDid)
 
   return (
     <div className="w-full mx-auto bg-og-blue p-5">
@@ -177,6 +194,7 @@ const Doctor = () => {
                         className="block w-full p-4 ps-10 border-gray-300 rounded-lg bg-[#e5e5e5] outline-none"
                         placeholder="Search ..."
                         required
+                        name="search"
                       />
                     </div>
                   </form>
@@ -308,30 +326,50 @@ const Doctor = () => {
                           View all
                         </Link>
                       </div>
-                      <div className="flex flex-col items-center justify-between space-y-3 max-h-[250px] 
-                      overflow-hidden overflow-y-scroll p-2 drop-shadow-md">
+                      <div
+                        className="flex flex-col items-center justify-between space-y-3 max-h-[250px] 
+                      overflow-hidden overflow-y-scroll p-2 drop-shadow-md"
+                      >
                         {appointmentData.map((data, index) => (
                           <div
                             key={index}
-                            className="w-full px-5 py-3 bg-white rounded-xl inline-flex items-center justify-start space-x-3"
+                            className="w-full px-5 py-3 bg-white rounded-xl flex items-center justify-between "
                           >
-                            <span
-                              className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
+                            <div className="inline-flex items-center justify-start space-x-3">
+                              <span
+                                className="h-10 w-10 bg-og-blue text-[16px] text-white flex 
                         items-center justify-center rounded-full"
-                            >
-                              P
-                            </span>
-                            <div className="flex flex-col">
-                              <h4 className="text-[16px] text-black">
-                                Patient Rounds
-                              </h4>
-                              <span className="text-[12px] text-[#0d0d0d60]">
-                                {data.symptoms}
+                              >
+                                P
                               </span>
-                              <span className="text-[12px] text-[#0d0d0d60]">
-                                {formatDate(data.appointmentDate)}
-                              </span>
+                              <div className="flex flex-col">
+                                <h4 className="text-[16px] text-black">
+                                  Patient Rounds
+                                </h4>
+                                <span className="text-[12px] text-[#0d0d0d60]">
+                                  {data.symptoms}
+                                </span>
+                                <span className="text-[12px] text-[#0d0d0d60]">
+                                  {formatDate(data.appointmentDate)}
+                                </span>
+                              </div>
                             </div>
+                            <button
+                              onClick={() => handleOpenModal(data)}
+                              type="button"
+                              className="hover:bg-og-blue hover:text-white inline-flex space-x-2 px-2 py-2 items-center 
+                              justify-center border-2 border-og-blue rounded-xl transition-all duration-200 ease-linear"
+                            >
+                              <span className="sr-only">
+                                Add new issue record
+                              </span>
+                              <span className=" ">
+                                <PlusCircleIcon className="h-4 w-4" />
+                              </span>
+                              <span className="text-[14px] font-normal pe-2">
+                                Issue record
+                              </span>
+                            </button>
                           </div>
                         ))}
                       </div>
@@ -356,11 +394,14 @@ const Doctor = () => {
                       </span>
                       <div>
                         <h4 className="text-[16px] text-white">
-                          {appointmentData && appointmentData[0].symptoms}
+                          {appointmentData.length > 0
+                            ? appointmentData[0].symptoms
+                            : "null"}
                         </h4>
                         <span className="text-[12px] text-[#f0f0f060]">
-                          {appointmentData &&
-                            formatDate(appointmentData[0].appointmentDate)}
+                          {appointmentData.length > 0
+                            ? formatDate(appointmentData[0].appointmentDate)
+                            : "null"}
                         </span>
                       </div>
                     </div>
@@ -411,6 +452,13 @@ const Doctor = () => {
           </div>
         </div>
       </div>
+      <IssueRecordModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        openModal={openModal}
+        data={patientData}
+        patientDid={patientDid}
+      />
     </div>
   );
 };
