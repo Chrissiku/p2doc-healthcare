@@ -1,5 +1,6 @@
 import {
   ArrowLeftOnRectangleIcon,
+  DocumentArrowDownIcon,
   Squares2X2Icon,
 } from "@heroicons/react/24/solid";
 import { DocumentDuplicateIcon } from "@heroicons/react/24/outline";
@@ -134,6 +135,8 @@ const Patient = () => {
       return age;
     }
   };
+
+  console.log("Medical record : ", medicalData);
 
   return (
     <div className="w-full mx-auto bg-og-blue p-5">
@@ -309,13 +312,42 @@ const Patient = () => {
                         </span>
                         {showMedical && (
                           <>
-                            <div className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-white">
-                              <button onClick={() => setShowMedical(false)}>
+                            <div
+                              className="w-full h-full fixed top-0 left-0 flex justify-center items-center 
+                            bg-white flex-col space-y-5"
+                            >
+                              <button
+                                onClick={() => setShowMedical(false)}
+                                className="bg-red-500 text-white py-2 px-5 text-center rounded-full"
+                              >
                                 Close me!
                               </button>
-                              <div>
+                              <div className="inline-flex flex-wrap items-center justify-center gap-5">
                                 {medicalData?.map((item, index) => (
-                                  <div key={index}>first medical record</div>
+                                  <div
+                                    key={index}
+                                    className="cursor-pointer inline-flex items-center justify-between space-x-5 p-3 
+                                    bg-gray-100 border border-gray-300 hover:bg-gray-200 transition-all duration-200 ease-in-out rounded-md"
+                                  >
+                                    <div>
+                                      <DocumentArrowDownIcon className="h-12 w-12 text-black" />
+                                    </div>
+                                    <div className="flex flex-col items-start justify-between text-[14px] text-gray-500 space-y-2">
+                                      <div>
+                                        <strong>Doctor DID :</strong>{" "}
+                                        {item?.formState?.doctorDid?.slice(
+                                          0,
+                                          4
+                                        ) +
+                                          " . . . " +
+                                          item?.formState?.doctorDid.slice(-5)}
+                                      </div>
+                                      <div>
+                                        <strong>Symptom(s) :{" "}</strong>
+                                        {item?.formState?.symptoms}
+                                      </div>
+                                    </div>
+                                  </div>
                                 ))}
                               </div>
                             </div>
