@@ -4,7 +4,7 @@ import { Web5Context } from "../../utils/Web5Context";
 import { publicDid } from "../../utils/constants";
 
 export default function DoctorsForm({ userType, closeModal }) {
-  const { web5, did, setUserType, protocolDefinition } = useContext(
+  const { web5, did, setUserType, protocolDefinition, saveUser } = useContext(
     Web5Context
   );
 
@@ -53,6 +53,7 @@ export default function DoctorsForm({ userType, closeModal }) {
 
   const formSubmit = (e) => {
     e.preventDefault();
+    saveUser(true, false);
     createDoctor().finally(() => {
       closeModal();
       setUserType("doctor");

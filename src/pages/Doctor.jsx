@@ -141,8 +141,6 @@ const Doctor = () => {
     return dateA - dateB;
   });
 
-  // console.log(appointmentData);
-  // console.log(patientDid)
 
   return (
     <div className="w-full mx-auto bg-og-blue p-5">
