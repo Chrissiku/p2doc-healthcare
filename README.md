@@ -5,6 +5,8 @@ Is a platform that leverage the power of web5 to ensure consealed medical record
 ## Motivation
 Many individuals died as a result of not finding a confidential way or mean through which their medical records could be shared and its confidentiality is till maintained even when it is been shared across the internet. Looking at the prior webs technologies such as web2, and web3, these are centralized meaning users data are kept by third-party entity which makes users' data to be vulnerable to be exposed to the other actors who can take avert advantages on the data's owners. Therefore, we come of with idea of concealing medical records sharing between a doctor and a patient leveraging the potency of blockchain decentralized technology (web5).
 
+
+
 ## Get Started
 ### Running P2DOC HEALTHCARE Locally
 Inorder to run P2DOC HealthCare solution successfully on your local system, thus are the steps you need follow:
@@ -45,5 +47,17 @@ These are got by console logging it out, then copy. Afterwhat, create a file cal
 VITE_PUBLIC_DID=did:ion:EiCXbwh...JnIn19
 VITE_PROTOCOL_URL=http://localhost:5173/
 ```
+
 ### Running P2DOC HEALTHCARE on Production
+To run on production, use the following url:
+```
+https://p2doc-healthcare-rho.vercel.app/
+```
+
+# P2DOC's Website
+This website's users are doctors and patients. at the homepage of our website at the top, there is a navbar which comprises of the logo, navbar tabs (About | Services | Contact), and a button at the right corner called 'Get Started'
+
+When a user click on the 'Get Started' button, this prompts the user to select who the user is (doctor | patient | neither)
+
+**User as a doctor:** when a user selects doctor, he or she is prompted for name, speciality, and year of experience.
 
