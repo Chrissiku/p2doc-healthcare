@@ -92,7 +92,6 @@ export default function PatientsForm({ userType, closeModal }) {
             className="max-w-[410px] min-w-[400px] h-[53px] px-5 bg-white rounded-2xl border border-sky-400"
           />
         </div>
-
         <button
           className="w-[93px] h-[38px] bg-sky-400 rounded-[100px] disabled:bg-black/40 disabled:cursor-not-allowed hover:bg-sky-300 duration-300 transition-colors ease-in-out"
           disabled={formState.dob === "" || formState.name === ""}

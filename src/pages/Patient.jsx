@@ -3,10 +3,10 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/24/solid";
 import {
-  PlusCircleIcon,
   DocumentDuplicateIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import KinForm from "../components/KinForm";
 import Calendar from "../components/Calendar";
 import { useContext, useEffect, useState } from "react";
 import { Web5Context } from "../utils/Web5Context";
@@ -23,12 +23,14 @@ const Patient = () => {
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [recipientDid, setRecipientDid] = useState("");
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [addKin, setAddKin] = useState(false);
 
   const handleBookClick = (doctor) => {
     setSelectedDoctor(doctor);
     setShowBookingForm(true);
     setRecipientDid(doctor.did)
-  };
+  }
 
   const handleFormSubmit = () => {
     setShowBookingForm(false);
@@ -129,7 +131,7 @@ const Patient = () => {
                 className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#D9D9D9] border-0 border-og-blue rounded-2xl"
               >
                 <div className="text-[#9e9e9e] inline-flex space-x-3 items-end justify-between">
-                  <span>{did.slice(0, 20) + "..." + did.slice(-8)}</span>
+                  <span>{did.slice(8, 20) + "..." + did.slice(-8)}</span>
                   <span>
                     <DocumentDuplicateIcon className="h-5 w-5" />
                   </span>
@@ -145,26 +147,14 @@ const Patient = () => {
                     {patientData.name}!
                   </span>
                 </h2>
-                <button
-                  type="button"
-                  className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-2xl"
-                >
-                  <span className="text-og-[#333]">
-                    <PlusCircleIcon className="h-8 w-8" />
-                  </span>
-                  <span className="text-[20px] font-normal">
-                    Book Appointment
-                  </span>
-                </button>
               </div>
-
               <div className="w-full inline-flex item-center justify-between gap-x-16">
                 {/* Patient info */}
                 <div className="bg-[#41CBE2] rounded-xl p-4 w-2/5 max-h-[250px]">
                   <div className="bg-white rounded-xl p-4 mb-8">
                     <h3 className="text-[20px] font-medium">DID</h3>
                     <div className="text-[#9e9e9e] inline-flex space-x-3 items-center justify-between">
-                      <span>{did.slice(0, 20) + "..." + did.slice(-8)}</span>
+                      <span>{did.slice(8, 20) + "..." + did.slice(-8)}</span>
                       <button type="button">
                         <DocumentDuplicateIcon className="h-5 w-5" />
                       </button>
@@ -225,25 +215,18 @@ const Patient = () => {
                             </span>
                           </div>
                         </div>
-                        {/* TODO: Add booking functionality */}
-                        {/* <span className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-full">
-                          Book
-                        </span> */}
-                        <button
-                          key={index}
-                          onClick={() => handleBookClick(doctor)}
-                        >
-                          Book
-                        </button>
+                        <div>
+                          <button className="bg-og-blue py-1 px-4 rounded-xl" key={index} onClick={() => handleBookClick(doctor)}>Book
+                          </button>
+                          {showBookingForm && (
+                            <div className="fixed top-0 z-50 left-0 w-full h-full flex items-center justify-center bg-gray-200">
+                              <button onClick={() => setShowBookingForm(false)} className="absolute top-4 flex justify-center right-4 bg-og-blue p-2 w-10 h-10 rounded-full">X</button>
+                              <BookingForm doctorDid={recipientDid} doctor={selectedDoctor} onSubmit={handleFormSubmit} />
+                            </div>
+                          )}
+                        </div>
                       </div>
                     ))}
-                    {showBookingForm && (
-                      <BookingForm
-                        doctorDid={recipientDid}
-                        doctor={selectedDoctor}
-                        onSubmit={handleFormSubmit}
-                      />
-                    )}
                   </div>
                 </div>
               </div>
@@ -267,34 +250,55 @@ const Patient = () => {
                       <p className="text-white font-semibold mb-16">
                         My Health Records
                       </p>
-                      <span className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-2xl">
+                      <div>
+                      <span onClick={() => setShowPopUp(true)} className="inline-flex cursor-pointer space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-2xl">
                         View
                       </span>
+                      {showPopUp && (
+                        <div className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-white">
+                        <button onClick={() => setShowPopUp(false)}>Close me!</button>
+                        </div>
+                      )}
+                      </div>
                     </div>
                   </div>
                 </div>
                 {/* 3rd */}
-                <div className="bg-[#FFFFFF] rounded-xl p-4 w-1/3 h-84">
+                <div className="bg-[#FFFFFF] rounded-xl p-4 w-1/3">
                   <div className="inline-flex items-center place-content-center w-full mb-8 mt-8">
                     <h3 className="inline-flex space-x-4 items-center justify-between text-[20px]">
                       <span className="font-semibold">Emergency Contacts</span>
                     </h3>
                   </div>
-                  <p className="w-full px-8 text-[#f7f7f7] py-4 bg-og-blue rounded-full text-[16px] mb-8 font-semibold text-center">
-                    View Next of Kin
-                  </p>
-                  <div className="inline-flex items-center place-content-center w-full mb-8">
+                   <div>
+                      <span onClick={() => setShowPopUp(true)} className="px-6 mx-auto cursor-pointer py-3 text-gray-700 underline rounded-full text-[16px] mb-4 font-semibold text-center">
+                        View Next of Kin
+                      </span>
+                      {showPopUp && (
+                        <div className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-white">
+                        <button onClick={() => setShowPopUp(false)}>Close me!</button>
+                        </div>
+                      )}
+                      </div>
+                  <div className="inline-flex items-center place-content-center w-full mb-4">
                     <h3 className="inline-flex space-x-4 items-center justify-between text-[20px]">
                       <span className="font-semibold">Or</span>
                     </h3>
                   </div>
-                  <p className="w-full px-8 text-[#f7f7f7] py-4 bg-og-blue rounded-full text-[16px] font-semibold text-center">
-                    Add Next of Kin
-                  </p>
+                   <div>
+                      <span onClick={() => setAddKin(true)} className="px-8 cursor-pointer text-[#f7f7f7] py-3 bg-og-blue rounded-full text-[16px] font-semibold text-center">
+                        Add Next of Kin
+                      </span>
+                      {addKin && (
+                        <div className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-white">
+                          <KinForm />
+                        <button className="fixed top-10 right-10 bg-og-blue p-2 text-2xl w-10 h-10 flex justify-center items-center rounded-full" onClick={() => setAddKin(false)}>X</button>
+                        </div>
+                      )}
+                      </div>
                 </div>
               </div>
             </div>
-
             <div className="w-full inline-flex item-center justify-between gap-x-16">
               <div className="bg-[#FFFFFF] rounded-xl p-4 w-2/5">
                 <div className="bg-white rounded-xl p-4">
@@ -317,7 +321,7 @@ const Patient = () => {
                       />
                     </span>
                     <div>
-                      <h4 className="text-[16px] text-black text-[#FFFFFF]">
+                      <h4 className="text-[16px] text-black">
                         Dr. Brandon
                       </h4>
                       <span className="text-[12px] text-[#F0F0F0]">
@@ -332,12 +336,12 @@ const Patient = () => {
                 <div className="w-full px-5 py-3 mb-2 bg-[#41CBE2] rounded-xl inline-flex items-center justify-start gap-4 space-x-3">
                   <div className="px-5 py-3 rounded-xl inline-flex items-center justify-start space-x-3 w-1/2">
                     <div>
-                      <h4 className="text-[16px] text-black text-[#FFFFFF]">
+                      <h4 className="text-[16px] text-black">
                         Upcoming Visits
                       </h4>
                     </div>
                     <span
-                      className="h-6 w-10 bg-white text-[12px] bg-white text-[#41CBE2] flex 
+                      className="h-6 w-10 bg-white text-[12px] text-[#41CBE2] flex 
                                     items-center justify-center rounded"
                     >
                       40
@@ -346,7 +350,7 @@ const Patient = () => {
                   <div className="border border-white h-16 w-[1px]"></div>
                   <div className="px-5 py-3 rounded-xl inline-flex items-center justify-start space-x-3 w-1/2">
                     <div>
-                      <h4 className="text-[16px] text-black text-[#FFFFFF]">
+                      <h4 className="text-[16px] text-black">
                         Total Visists
                       </h4>
                     </div>

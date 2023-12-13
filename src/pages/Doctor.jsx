@@ -228,16 +228,6 @@ const Doctor = () => {
                     Dr. {doctorData.name} !
                   </span>
                 </h2>
-                <button
-                  type="button"
-                  className="inline-flex space-x-2 px-5 py-3 items-center justify-center border-2 border-og-blue rounded-2xl"
-                >
-                  <span className="sr-only">Add new issue record</span>
-                  <span className="text-og-blue ">
-                    <PlusCircleIcon className="h-8 w-8" />
-                  </span>
-                  <span className="text-[20px] font-normal">Issue record</span>
-                </button>
               </div>
               <div className="w-full space-y-[30px]">
                 <div className="w-full flex flex-row items-start justify-between space-x-20">
