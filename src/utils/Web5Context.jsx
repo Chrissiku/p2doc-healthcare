@@ -13,6 +13,7 @@ const ContextProvider = ({ children }) => {
   const [medicalRecords, setMedicalRecords] = useState([]);
   const [doctorList, setDoctorList] = useState([]);
   const [loadingDoctor, setLoadingDoctor] = useState(true);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const connectWeb5 = async () => {
@@ -24,6 +25,7 @@ const ContextProvider = ({ children }) => {
         console.error("Error Connecting to web5 : ", error);
       }
     };
+
     connectWeb5();
   }, []);
 
@@ -35,11 +37,14 @@ const ContextProvider = ({ children }) => {
     },
   };
 
-
   const protocolDefinition = {
     protocol: import.meta.env.VITE_PROTOCOL_URL,
     published: true,
     types: {
+      users: {
+        schema: `${schema.uri}/users`,
+        dataFormats: ["application/json"],
+      },
       patientProfile: {
         schema: `${schema.uri}/patientProfile`,
         dataFormats: ["application/json"],
@@ -58,6 +63,12 @@ const ContextProvider = ({ children }) => {
       },
     },
     structure: {
+      users: {
+        $actions: [
+          { who: "anyone", can: "write" },
+          { who: "anyone", can: "read" },
+        ],
+      },
       medicalRecords: {
         $actions: [
           { who: "anyone", can: "write" },
@@ -136,20 +147,93 @@ const ContextProvider = ({ children }) => {
       }
     };
 
+    const fetchUsers = async () => {
+      try {
+        const response = await web5.dwn.records.query({
+          from: publicDid,
+          message: {
+            filter: {
+              protocol: protocolDefinition.protocol,
+              schema: protocolDefinition.types.users.schema,
+            },
+          },
+        });
+
+        if (response.status.code === 200) {
+          const usersProfile = await Promise.all(
+            response.records.map(async (record) => {
+              const data = await record.data.json();
+              return {
+                ...data,
+                recordId: record.id,
+              };
+            })
+          );
+          // console.log(usersProfile)
+          setUsers(usersProfile);
+          setLoadingDoctor(false);
+          return usersProfile;
+        } else {
+          console.error("error fetching users", response.status);
+          return [];
+        }
+      } catch (error) {
+        console.error("error fetching all users :", error);
+      }
+    };
+
     if (web5 && did) {
       installProtocol();
+      fetchUsers();
       fetchDoctors();
     }
   }, [web5, did]);
+
+  console.log("user : ", users);
+
+  function doesDidExist(id, array) {
+    return array.some((item) => item.did === id);
+  }
+
+  const didExist = doesDidExist(did, users);
+
+  const saveUser = async (doctor, patient) => {
+    console.log("Saving User ...");
+
+    try {
+      const userData = { did: did, doctor: doctor, patient: patient };
+      const { record, status } = await web5.dwn.records.write({
+        data: { ...userData },
+        message: {
+          protocol: protocolDefinition.protocol,
+          protocolPath: "users",
+          schema: protocolDefinition.types.users.schema,
+          recipient: publicDid,
+          published: true,
+        },
+      });
+      console.log("user Created : ", { record, status });
+
+      // Send to public and private did
+      await record.send(publicDid);
+
+      console.log("user sent");
+    } catch (error) {
+      console.error("Error Creating user user : ", error);
+    }
+    // }
+  };
 
   const value = {
     web5,
     did,
     userType,
     setUserType,
+    saveUser,
     protocolDefinition,
     doctorList,
     loadingDoctor,
+    users,
   };
 
   return (
