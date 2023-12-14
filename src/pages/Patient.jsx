@@ -183,7 +183,9 @@ const Patient = () => {
                   <span>{did.slice(8, 20) + "..." + did.slice(-8)}</span>
                   <button className="flex gap-2" onClick={handleCopy} type="button">
                     <DocumentDuplicateIcon className="h-5 w-5" />
-                    {isCopied ? 'Copied!': ''}
+                    <div>
+                    {isCopied ? <p className="bg-gray-400 text-sm text-white p-1 rounded-3xl">Copied!</p>: ''}
+                    </div>
                   </button>
                 </div>
               </button>
@@ -207,7 +209,7 @@ const Patient = () => {
                       <span>{did.slice(8, 20) + "..." + did.slice(-8)}</span>
                       <button className="flex gap-2" onClick={handleCopy} type="button">
                         <DocumentDuplicateIcon className="h-5 w-5" />
-                        {isCopied ? 'Copied!': ''}
+                        {isCopied ? <p className="bg-gray-400 text-sm text-white p-1 rounded-3xl">Copied!</p>: ''}
                       </button>
                     </div>
                   </div>
