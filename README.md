@@ -2,6 +2,8 @@
 
 Is a platform that leverage the power of web5 to ensure consealed medical records sharing between patients and doctors hence comes the name P2Doc i.e. (Patient-to-Doctor). 
 
+![P2DOC HEALTHCARE](./public/assets/images/p2doc.png)  
+
 ## Motivation
 Many individuals died as a result of not finding a confidential way or mean through which their medical records could be shared and its confidentiality is till maintained even when it is been shared across the internet. Looking at the prior webs technologies such as web2, and web3, these are centralized meaning users data are kept by third-party entity which makes users' data to be vulnerable to be exposed to the other actors who can take avert advantages on the data's owners. Therefore, we come of with idea of concealing medical records sharing between a doctor and a patient leveraging the potency of blockchain decentralized technology (web5).
 
@@ -66,6 +68,10 @@ When a user click on the 'Get Started' button, this prompts the user to select w
 - Accept or Reject incoming requests
 
 - View the recently booked appointment
+
+- Give a feedback based on the patient syptomes contains in the request received by the doctor
+
+**User as a patient:** when a user selects patient, he or she is prompted for name, speciality, and year of experience. After supplying all of those, the patient gets connected to the DWA. Therefore, on the doctor dashboard the following operations or features can be carried out by the patient.
 
 - 
 
