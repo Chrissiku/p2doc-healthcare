@@ -87,6 +87,7 @@ To run the application in a production environment, you can access the live vers
 - **👤 Christian Siku**
 - **👤 Gina Beki**
 - **👤 Sunday Peter**
+- **👤 Hussein Yusuf**
 
 
 ## 🪪 License
