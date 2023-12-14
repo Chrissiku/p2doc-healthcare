@@ -4,7 +4,7 @@ import { Web5Context } from "../../utils/Web5Context";
 import { publicDid } from "../../utils/constants";
 
 export default function DoctorsForm({ userType, closeModal }) {
-  const { web5, did, setUserType, protocolDefinition } = useContext(
+  const { web5, did, setUserType, protocolDefinition, saveUser } = useContext(
     Web5Context
   );
 
@@ -23,7 +23,7 @@ export default function DoctorsForm({ userType, closeModal }) {
   };
 
   const createDoctor = async () => {
-    console.log("Creating Doctor Profile ...");
+
 
     try {
       const { record, status } = await web5.dwn.records.write({
@@ -36,7 +36,7 @@ export default function DoctorsForm({ userType, closeModal }) {
           published: true,
         },
       });
-      console.log("Profile Created : ", { record, status });
+
 
       // Send to public and private did
       const DIDs = [did, publicDid];
@@ -45,7 +45,7 @@ export default function DoctorsForm({ userType, closeModal }) {
           await record.send(did);
         })
       );
-      console.log("Profile sent");
+      // console.log("Profile sent");
     } catch (error) {
       console.error("Error Creating doctor data : ", error);
     }
@@ -53,6 +53,7 @@ export default function DoctorsForm({ userType, closeModal }) {
 
   const formSubmit = (e) => {
     e.preventDefault();
+    saveUser(true, false);
     createDoctor().finally(() => {
       closeModal();
       setUserType("doctor");

@@ -107,7 +107,7 @@ export default function IssueRecordModal({
                     >
                       Issue New Record to :
                       <span className="text-gray-500">
-                        {patientDid.slice(0, 8) + "..." + patientDid.slice(-8)}
+                        {patientDid?.slice(0, 8) + "..." + patientDid?.slice(-8)}
                       </span>
                     </Dialog.Title>
 

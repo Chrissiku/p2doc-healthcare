@@ -1,10 +1,9 @@
 import {
   ArrowLeftOnRectangleIcon,
+  DocumentArrowDownIcon,
   Squares2X2Icon,
 } from "@heroicons/react/24/solid";
-import {
-  DocumentDuplicateIcon,
-} from "@heroicons/react/24/outline";
+import { DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import KinForm from "../components/KinForm";
 import Calendar from "../components/Calendar";
@@ -24,13 +23,15 @@ const Patient = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [recipientDid, setRecipientDid] = useState("");
   const [showPopUp, setShowPopUp] = useState(false);
+  const [showMedical, setShowMedical] = useState(false);
   const [addKin, setAddKin] = useState(false);
+  const [medicalData, setMedicalData] = useState([]);
 
   const handleBookClick = (doctor) => {
     setSelectedDoctor(doctor);
     setShowBookingForm(true);
-    setRecipientDid(doctor.did)
-  }
+    setRecipientDid(doctor.did);
+  };
 
   const handleFormSubmit = () => {
     setShowBookingForm(false);
@@ -39,7 +40,7 @@ const Patient = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Fetching patient Profile");
+        // console.log("Fetching patient Profile");
         const response = await web5.dwn.records.query({
           from: did,
           message: {
@@ -71,6 +72,41 @@ const Patient = () => {
       }
     };
 
+    const fetchMedicalRecord = async () => {
+      try {
+        // console.log("Fetching patient Profile");
+        const response = await web5.dwn.records.query({
+          from: did,
+          message: {
+            filter: {
+              protocol: protocolDefinition.protocol,
+              schema: protocolDefinition.types.medicalRecords.schema,
+            },
+          },
+        });
+
+        if (response.status.code === 200) {
+          const medicalRec = await Promise.all(
+            response.records.map(async (record) => {
+              const data = await record.data.json();
+              return {
+                ...data,
+                recordId: record.id,
+              };
+            })
+          );
+          // console.log("medical record : ", medicalRec);
+          setMedicalData(medicalRec);
+          return medicalRec;
+        } else {
+          console.error("error fetching this profile", response.status);
+          return [];
+        }
+      } catch (error) {
+        console.error("error fetching patient profile :", error);
+      }
+    };
+
     const getRandomElements = () => {
       const numElements = 3;
       const randomArray = doctorList
@@ -80,6 +116,7 @@ const Patient = () => {
     };
 
     fetchData();
+    fetchMedicalRecord();
     getRandomElements();
   }, []);
 
@@ -98,6 +135,8 @@ const Patient = () => {
       return age;
     }
   };
+
+  // console.log("Medical record : ", medicalData);
 
   return (
     <div className="w-full mx-auto bg-og-blue p-5">
@@ -216,12 +255,26 @@ const Patient = () => {
                           </div>
                         </div>
                         <div>
-                          <button className="bg-og-blue py-1 px-4 rounded-xl" key={index} onClick={() => handleBookClick(doctor)}>Book
+                          <button
+                            className="bg-og-blue py-1 px-4 rounded-xl"
+                            key={index}
+                            onClick={() => handleBookClick(doctor)}
+                          >
+                            Book
                           </button>
                           {showBookingForm && (
                             <div className="fixed top-0 z-50 left-0 w-full h-full flex items-center justify-center bg-gray-200">
-                              <button onClick={() => setShowBookingForm(false)} className="absolute top-4 flex justify-center right-4 bg-og-blue p-2 w-10 h-10 rounded-full">X</button>
-                              <BookingForm doctorDid={recipientDid} doctor={selectedDoctor} onSubmit={handleFormSubmit} />
+                              <button
+                                onClick={() => setShowBookingForm(false)}
+                                className="absolute top-4 flex justify-center right-4 bg-og-blue p-2 w-10 h-10 rounded-full"
+                              >
+                                X
+                              </button>
+                              <BookingForm
+                                doctorDid={recipientDid}
+                                doctor={selectedDoctor}
+                                onSubmit={handleFormSubmit}
+                              />
                             </div>
                           )}
                         </div>
@@ -251,14 +304,55 @@ const Patient = () => {
                         My Health Records
                       </p>
                       <div>
-                      <span onClick={() => setShowPopUp(true)} className="inline-flex cursor-pointer space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-2xl">
-                        View
-                      </span>
-                      {showPopUp && (
-                        <div className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-white">
-                        <button onClick={() => setShowPopUp(false)}>Close me!</button>
-                        </div>
-                      )}
+                        <span
+                          onClick={() => setShowMedical(true)}
+                          className="inline-flex cursor-pointer space-x-2 px-5 py-3 items-center justify-center bg-[#41CBE2] rounded-2xl"
+                        >
+                          View
+                        </span>
+                        {showMedical && (
+                          <>
+                            <div
+                              className="w-full h-full fixed top-0 left-0 flex justify-center items-center 
+                            bg-white flex-col space-y-5"
+                            >
+                              <button
+                                onClick={() => setShowMedical(false)}
+                                className="bg-red-500 text-white py-2 px-5 text-center rounded-full"
+                              >
+                                Close me!
+                              </button>
+                              <div className="inline-flex flex-wrap items-center justify-center gap-5">
+                                {medicalData?.map((item, index) => (
+                                  <div
+                                    key={index}
+                                    className="cursor-pointer inline-flex items-center justify-between space-x-5 p-3 
+                                    bg-gray-100 border border-gray-300 hover:bg-gray-200 transition-all duration-200 ease-in-out rounded-md"
+                                  >
+                                    <div>
+                                      <DocumentArrowDownIcon className="h-12 w-12 text-black" />
+                                    </div>
+                                    <div className="flex flex-col items-start justify-between text-[14px] text-gray-500 space-y-2">
+                                      <div>
+                                        <strong>Doctor DID :</strong>{" "}
+                                        {item?.formState?.doctorDid?.slice(
+                                          0,
+                                          4
+                                        ) +
+                                          " . . . " +
+                                          item?.formState?.doctorDid.slice(-5)}
+                                      </div>
+                                      <div>
+                                        <strong>Symptom(s) :{" "}</strong>
+                                        {item?.formState?.symptoms}
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -270,32 +364,47 @@ const Patient = () => {
                       <span className="font-semibold">Emergency Contacts</span>
                     </h3>
                   </div>
-                   <div>
-                      <span onClick={() => setShowPopUp(true)} className="px-6 mx-auto cursor-pointer py-3 text-gray-700 underline rounded-full text-[16px] mb-4 font-semibold text-center">
-                        View Next of Kin
-                      </span>
-                      {showPopUp && (
+                  <div>
+                    <span
+                      onClick={() => setShowPopUp(true)}
+                      className="px-6 mx-auto cursor-pointer py-3 text-gray-700 underline rounded-full text-[16px] mb-4 font-semibold text-center"
+                    >
+                      View Next of Kin
+                    </span>
+                    {showPopUp && (
+                      <>
                         <div className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-white">
-                        <button onClick={() => setShowPopUp(false)}>Close me!</button>
+                          <button onClick={() => setShowPopUp(false)}>
+                            Close me!
+                          </button>
                         </div>
-                      )}
-                      </div>
+                      </>
+                    )}
+                  </div>
                   <div className="inline-flex items-center place-content-center w-full mb-4">
                     <h3 className="inline-flex space-x-4 items-center justify-between text-[20px]">
                       <span className="font-semibold">Or</span>
                     </h3>
                   </div>
-                   <div>
-                      <span onClick={() => setAddKin(true)} className="px-8 cursor-pointer text-[#f7f7f7] py-3 bg-og-blue rounded-full text-[16px] font-semibold text-center">
-                        Add Next of Kin
-                      </span>
-                      {addKin && (
-                        <div className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-white">
-                          <KinForm />
-                        <button className="fixed top-10 right-10 bg-og-blue p-2 text-2xl w-10 h-10 flex justify-center items-center rounded-full" onClick={() => setAddKin(false)}>X</button>
-                        </div>
-                      )}
+                  <div>
+                    <span
+                      onClick={() => setAddKin(true)}
+                      className="px-8 cursor-pointer text-[#f7f7f7] py-3 bg-og-blue rounded-full text-[16px] font-semibold text-center"
+                    >
+                      Add Next of Kin
+                    </span>
+                    {addKin && (
+                      <div className="w-full h-full fixed top-0 left-0 flex justify-center items-center bg-white">
+                        <KinForm />
+                        <button
+                          className="fixed top-10 right-10 bg-og-blue p-2 text-2xl w-10 h-10 flex justify-center items-center rounded-full"
+                          onClick={() => setAddKin(false)}
+                        >
+                          X
+                        </button>
                       </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -321,9 +430,7 @@ const Patient = () => {
                       />
                     </span>
                     <div>
-                      <h4 className="text-[16px] text-black">
-                        Dr. Brandon
-                      </h4>
+                      <h4 className="text-[16px] text-black">Dr. Brandon</h4>
                       <span className="text-[12px] text-[#F0F0F0]">
                         30 Jan, 2023 | 04:00 PM
                       </span>
@@ -350,9 +457,7 @@ const Patient = () => {
                   <div className="border border-white h-16 w-[1px]"></div>
                   <div className="px-5 py-3 rounded-xl inline-flex items-center justify-start space-x-3 w-1/2">
                     <div>
-                      <h4 className="text-[16px] text-black">
-                        Total Visists
-                      </h4>
+                      <h4 className="text-[16px] text-black">Total Visists</h4>
                     </div>
                     <span
                       className="h-6 w-10 text-[12px] bg-white text-[#41CBE2] flex 
