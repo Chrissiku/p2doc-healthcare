@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { Web5Context } from "../../utils/Web5Context";
 
 export default function PatientsForm({ userType, closeModal }) {
-  const { web5, did, setUserType, protocolDefinition, saveUser } = useContext(
+  const { web5, did, setUserTypeAndRedirect, protocolDefinition } = useContext(
     Web5Context
   );
   const [formState, setFormState] = useState({
@@ -50,10 +50,9 @@ export default function PatientsForm({ userType, closeModal }) {
 
   const formSubmit = (e) => {
     e.preventDefault();
-    saveUser(false, true);
     createPatient().finally(() => {
       closeModal();
-      setUserType("patient");
+      setUserTypeAndRedirect("patient");
     });
   };
 
