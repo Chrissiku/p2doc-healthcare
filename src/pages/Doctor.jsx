@@ -415,7 +415,7 @@ const Doctor = () => {
                           </span>
                         </div>
                       </div>
-                      <div className="border border-white h-[100px] w-[1px]"></div>
+                  
                       <div className="flex flex-col items-start justify-between space-y-8">
                         <h5 className="text-white text-[20px]">
                           <span>Repeats patients</span>{" "}

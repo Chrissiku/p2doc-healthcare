@@ -1,71 +1,94 @@
-# P2DOC HEALTHCARE
+![P2DOC HEALTHCARE](./public/assets/images/p2doc.png)  
 
-Is a platform that leverage the power of web5 to ensure consealed medical records sharing between patients and doctors hence comes the name P2Doc i.e. (Patient-to-Doctor). 
+# 🩺 P2Doc Healthcare
+> P2Doc is a platform that leverages the power of Web5 to ensure a secure sharing of medical records between patients and doctors, hence the name P2Doc, signifying Patient-to-Doctor interaction
 
-## Motivation
-Many individuals died as a result of not finding a confidential way or mean through which their medical records could be shared and its confidentiality is till maintained even when it is been shared across the internet. Looking at the prior webs technologies such as web2, and web3, these are centralized meaning users data are kept by third-party entity which makes users' data to be vulnerable to be exposed to the other actors who can take avert advantages on the data's owners. Therefore, we come of with idea of concealing medical records sharing between a doctor and a patient leveraging the potency of blockchain decentralized technology (web5).
+## 🪧 Problem statement
+Numerous individuals have faced unfortunate consequences due to the absence of a secure means through which their medical records can be confidentially shared. Maintaining the confidentiality of medical information, even when shared over the internet, remains a critical concern. When examining previous web technologies, such as Web2 and Web3, which are centralized, it becomes apparent that users' data is stored by third-party entities, leaving it vulnerable to exposure by malicious actors. Hence, we conceived the idea of concealing the sharing of medical records between doctors and patients by harnessing the power of decentralized technology (Web5).
 
+## ⚙ Key features
+The application offers the following key features:
+- **Profile Creation:** 
+  Both doctors and patients can easily create and manage their profiles based on their user type.
 
+- **Doctor Dashboard:** 
+  Doctors have access to a dedicated dashboard where they can view incoming requests from onboarded patients.
 
-## Get Started
-### Running P2DOC HEALTHCARE Locally
-Inorder to run P2DOC HealthCare solution successfully on your local system, thus are the steps you need follow:
+- **Appointment Management:** 
+  Doctors can efficiently manage appointments, including viewing recently booked appointments.
 
-On any of your texteditor software, in our case now, vscode, open its terminal then navigate to a desireable path where you would want a copy of our repo stay, afterward, run the following command on the terminal
+- **Medical Record Management:** 
+  Doctors can write and manage medical records securely within the platform.
 
-- Step 1: Clone the inistance of the P2DOC's repo using 
+- **Patient Appointment Booking:** 
+  Patients can conveniently book appointments with their preferred doctors through the platform.
+
+- **Medical Record Access:** 
+  Patients can easily access and view their medical records, ensuring transparency and convenience.
+
+## 🚦 Getting Started
+To get a local copy up and running, follow these steps.
+### Prerequisites
+To run this project you need:
+
+- Node.js and npm:
+Ensure that Node.js, a JavaScript runtime, is installed on your machine.
+npm (Node Package Manager) is typically included with Node.js.
+
+- Text Editor:
+Choose a preferred text editor for code editing. Popular choices include Visual Studio Code, Sublime Text, or Atom.
+
+- Web Browser:
+Have a modern web browser installed (e.g., Google Chrome, Mozilla Firefox, or Microsoft Edge) to launch and interact with the application.
+
+## 🗝️ Set up
+
+Step 1: Clone this repository to your desired path:
 ```
 git clone https://github.com/Chrissiku/p2doc-healthcare.git
 ```
 
-- Step 2: Change the directory (dir) to p2doc-healthcare path
+Step 2: Change the directory (dir) to p2doc-healthcare path
 ```
 cd p2doc-healthcare
 ```
-- Step 3: Install all the required dependencies (using npm in our case)
+
+Step 3: Install all the required dependencies (using npm in our case)
 ```
 npm install
 ```
-Note: After a successful installation, hence do the perform the next step
-- Step 4: Run P2DOC HEALTHCARE Locally
+
+Step 4: Run the project locally by starting the server
 ```
 npm run dev
 ``` 
-- Step 5: Copy the generated URL and paste it on browser
-```
-http://localhost:5173/
-```
-**IMPORTANT NOTE**
-For the website to work properly, you will need to generate the following
 
-- VITE_PUBLIC_DID (Vite Public Decentralized Identifier)
-- VITE_PROTOCOL_URL (http://localhost:5173/)
+## 🎲 Configuration
 
-These are got by console logging it out, then copy. Afterwhat, create a file called .env at the root directory wherein you should paste the copied credentials i.e. VITE_PUBLIC_DID, and VITE_PROTOCOL_URL
+To ensure optimal functionality of the application, create a `.env` file in the root of your repository and add the following variables:
 
 ```
 VITE_PUBLIC_DID=did:ion:EiCXbwh...JnIn19
 VITE_PROTOCOL_URL=http://localhost:5173/
 ```
 
-### Running P2DOC HEALTHCARE on Production
-To run on production, use the following url:
-```
-https://p2doc-healthcare-rho.vercel.app/
-```
+**Note:** 
+To generate a token for `VITE_PUBLIC_DID`, navigate to `Web5Context.jsx` file and add the `console.log(did)` statement at the end of the `useEffect` where the `did` is set.
+Generate the token from the browser console, and paste the token into your variable.
 
-# P2DOC's Website
-This website's users are doctors and patients. at the homepage of our website at the top, there is a navbar which comprises of the logo, navbar tabs (About | Services | Contact), and a button at the right corner called 'Get Started'
+## 🌎 Deployment
 
-When a user click on the 'Get Started' button, this prompts the user to select who the user is (doctor | patient | neither)
+To run the application in a production environment, you can access the live version using the following URL:
+- [p2doc healthcare](https://p2doc-healthcare-rho.vercel.app/)
 
-**User as a doctor:** when a user selects doctor, he or she is prompted for name, speciality, and year of experience. After supplying all of those, the doctor gets connected to the DWA. Therefore, on the doctor dashboard the following operations or features can be carried out by the doctor.
 
-- View the incoming requests from onboarded patients.
+## 👥 Contributors
 
-- Accept or Reject incoming requests
+- **👤 Christian Siku**
+- **👤 Gina Beki**
+- **👤 Sunday Peter**
+- **👤 Hussein Yusuf**
 
-- View the recently booked appointment
 
-- 
-
+## 🪪 License
+This project is licensed under the [MIT License](LICENSE) - see the [LICENSE](LICENSE) file for details.
