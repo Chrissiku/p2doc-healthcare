@@ -18,6 +18,7 @@ const Patient = () => {
   );
   const [patientData, setPatientData] = useState([]);
   const [doctorInfo, setDoctorInfo] = useState([]);
+  const [isCopied, setIsCopied] = useState(false);
   const [showDoctorsList, setShowDoctorsList] = useState(false);
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
@@ -31,6 +32,15 @@ const Patient = () => {
     setSelectedDoctor(doctor);
     setShowBookingForm(true);
     setRecipientDid(doctor.did);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(did);
+    setIsCopied(true);
+
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 3000);
   };
 
   const handleFormSubmit = () => {
@@ -171,9 +181,12 @@ const Patient = () => {
               >
                 <div className="text-[#9e9e9e] inline-flex space-x-3 items-end justify-between">
                   <span>{did.slice(8, 20) + "..." + did.slice(-8)}</span>
-                  <span>
+                  <button className="flex gap-2" onClick={handleCopy} type="button">
                     <DocumentDuplicateIcon className="h-5 w-5" />
-                  </span>
+                    <div>
+                    {isCopied ? <p className="bg-gray-400 text-sm text-white p-1 rounded-3xl">Copied!</p>: ''}
+                    </div>
+                  </button>
                 </div>
               </button>
             </nav>
@@ -194,8 +207,9 @@ const Patient = () => {
                     <h3 className="text-[20px] font-medium">DID</h3>
                     <div className="text-[#9e9e9e] inline-flex space-x-3 items-center justify-between">
                       <span>{did.slice(8, 20) + "..." + did.slice(-8)}</span>
-                      <button type="button">
+                      <button className="flex gap-2" onClick={handleCopy} type="button">
                         <DocumentDuplicateIcon className="h-5 w-5" />
+                        {isCopied ? <p className="bg-gray-400 text-sm text-white p-1 rounded-3xl">Copied!</p>: ''}
                       </button>
                     </div>
                   </div>
@@ -358,10 +372,10 @@ const Patient = () => {
                   </div>
                 </div>
                 {/* 3rd */}
-                <div className="bg-[#FFFFFF] rounded-xl p-4 w-1/3">
+                <div className="bg-[#FFFFFF] rounded-xl p-4 w-1/3 flex flex-col gap-4 items-center">
                   <div className="inline-flex items-center place-content-center w-full mb-8 mt-8">
                     <h3 className="inline-flex space-x-4 items-center justify-between text-[20px]">
-                      <span className="font-semibold">Emergency Contacts</span>
+                      <span className="font-semibold text-center">Emergency Contacts</span>
                     </h3>
                   </div>
                   <div>

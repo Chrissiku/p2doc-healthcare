@@ -25,11 +25,11 @@ const DoctorsList = ({ close }) => {
         setShowBookingForm(false);
     }
     return (
-        <div className='mx-auto h-screen bg-white w-[75%] p-3 rounded-lg'>
+        <div className='mx-auto h-screen bg-white w-[85%] p-3 rounded-lg'>
             <button className='font-medium bg-og-blue h-10 w-10 text-3xl mb-10' onClick={close}>X</button>
             <div className='grid grid-cols-2 gap-9 justify-center items-center px-5 xl:grid-cols-4 '>
                 {paginatedList.map((doctor, index) => (
-                    <div key={index} className='border border-og-blue p-3 flex flex-col gap-3 bg-slate-100 rounded-lg'>
+                    <div key={index} className='border border-og-blue p-3 flex flex-col gap-3 bg-slate-100 rounded-lg h-[220px] w-[220px]'>
                         <h4 className='font-semibold text-lg'>Dr. {doctor.name}</h4>
                         <span>{doctor.did ? doctor.did.slice(8, 20) + "..." + doctor.did.slice(-8): ''}</span>
                         <p className='text-gray-400 text-base'>{doctor.speciality}</p>
