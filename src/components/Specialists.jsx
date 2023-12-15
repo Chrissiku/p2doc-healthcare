@@ -26,7 +26,7 @@ const Specialists = ({ specialistData }) => {
       </div>
     );
   }
-
+  console.log(specialistData);
   return (
     <div className="my-[100px]">
       <h2 className="ml-[84px] font-poppins font-semibold text-5xl">
@@ -74,10 +74,13 @@ const Specialists = ({ specialistData }) => {
                 />
                 <p>{specialist.name}</p>
                 <p className="font-medium uppercase text-lg">
-                  {specialist.specialty}
+                  {specialist.speciality}
                 </p>
-                <p>test@gmail.com</p>
-                <p>$200</p>
+                <p>
+                  {specialist.experience === 1
+                    ? "1 year of experience"
+                    : `${specialist.experience} years of experience`}
+                </p>
               </SwiperSlide>
             );
           })}

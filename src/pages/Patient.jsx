@@ -233,7 +233,9 @@ const Patient = () => {
                   <div className="bg-white rounded-xl p-4 mb-8">
                     <h3 className="text-[20px] font-medium">Age</h3>
                     <div className="text-[#9e9e9e] inline-flex space-x-3 items-center justify-between">
-                      <span>{calculateAge(patientData.dob)} years</span>
+                      {calculateAge(patientData.dob) <= 1
+                        ? " 1 >= year old "
+                        : `${calculateAge(patientData.dob)} years old`}
                     </div>
                   </div>
                 </div>
