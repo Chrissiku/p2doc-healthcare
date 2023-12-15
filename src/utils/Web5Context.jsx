@@ -111,17 +111,17 @@ const ContextProvider = ({ children }) => {
   useEffect(() => {
     const installProtocol = async () => {
       try {
-        // console.log("Installing protocol ...");
+        console.log("Installing protocol ...");
         const { protocol, status } = await web5.dwn.protocols.configure({
           message: {
             definition: protocolDefinition,
           },
         });
-
+        console.log("prepare protocol");
         await protocol.send(did);
-        // console.log("Protocol installed and sent successfully . . .");
+        console.log("Protocol installed and sent successfully . . .");
       } catch (error) {
-        console.error("Error Installing Protocol : ", error);
+        console.error("Error installing protocol: : ", error);
       }
     };
 

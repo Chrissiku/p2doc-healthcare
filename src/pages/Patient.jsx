@@ -130,7 +130,7 @@ const Patient = () => {
       fetchMedicalRecord();
       getRandomElements();
     }
-  }, [web5, did, doctorList]);
+  }, [web5, did]);
 
   const calculateAge = (dob) => {
     const birthDate = new Date(dob);
