@@ -77,8 +77,8 @@ const Specialists = ({ specialistData }) => {
                   {specialist.speciality}
                 </p>
                 <p>
-                  {specialist.experience === 1
-                    ? "1 year of experience"
+                  {specialist.experience <= 1
+                    ? `${specialist.experience} year of experience`
                     : `${specialist.experience} years of experience`}
                 </p>
               </SwiperSlide>
