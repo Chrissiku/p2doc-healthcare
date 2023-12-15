@@ -26,7 +26,7 @@ const Specialists = ({ specialistData }) => {
       </div>
     );
   }
-  console.log(specialistData);
+  // console.log(specialistData);
   return (
     <div className="my-[100px]">
       <h2 className="ml-[84px] font-poppins font-semibold text-5xl">

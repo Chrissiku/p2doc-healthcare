@@ -117,9 +117,8 @@ const ContextProvider = ({ children }) => {
             definition: protocolDefinition,
           },
         });
-        console.log("prepare protocol");
         await protocol.send(did);
-        console.log("Protocol installed and sent successfully . . .");
+        console.log("Protocol installed successfully.");
       } catch (error) {
         console.error("Error installing protocol: : ", error);
       }
