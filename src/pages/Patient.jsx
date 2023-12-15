@@ -13,7 +13,7 @@ import DoctorsList from "../components/DoctorsList";
 import BookingForm from "../components/AppointmentForm";
 
 const Patient = () => {
-  const { web5, did, protocolDefinition, setUserType, doctorList } = useContext(
+  const { web5, did, protocolDefinition, doctorList, logout } = useContext(
     Web5Context
   );
   const [patientData, setPatientData] = useState([]);
@@ -125,10 +125,12 @@ const Patient = () => {
       setDoctorInfo(randomArray);
     };
 
-    fetchData();
-    fetchMedicalRecord();
-    getRandomElements();
-  }, []);
+    if (web5 && did) {
+      fetchData();
+      fetchMedicalRecord();
+      getRandomElements();
+    }
+  }, [web5, did, doctorList]);
 
   const calculateAge = (dob) => {
     const birthDate = new Date(dob);
@@ -146,8 +148,6 @@ const Patient = () => {
     }
   };
 
-  // console.log("Medical record : ", medicalData);
-
   return (
     <div className="w-full mx-auto bg-og-blue p-5">
       <div className="w-full mx-auto flex flex-row items-start justify-center space-x-5">
@@ -163,7 +163,7 @@ const Patient = () => {
 
             <button
               type="button"
-              onClick={() => setUserType(null)}
+              onClick={() => logout()}
               className="p-3 hover:bg-[#fff9] rounded-lg text-white 
               hover:text-olive-green transition-all duration-300"
             >
@@ -175,20 +175,27 @@ const Patient = () => {
         <div className="flex-1 mx-auto bg-[#f7f7f7] rounded-[60px] px-10 py-7">
           <div className="w-full mx-auto flex flex-col items-start justify-start space-y-[50px]">
             <nav className="w-full inline-flex item-center justify-end">
-              <button
-                type="button"
-                className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#D9D9D9] border-0 border-og-blue rounded-2xl"
-              >
+              <div className="inline-flex space-x-2 px-5 py-3 items-center justify-center bg-[#D9D9D9] border-0 border-og-blue rounded-2xl">
                 <div className="text-[#9e9e9e] inline-flex space-x-3 items-end justify-between">
-                  <span>{did.slice(8, 20) + "..." + did.slice(-8)}</span>
-                  <button className="flex gap-2" onClick={handleCopy} type="button">
+                  <span>{did?.slice(8, 20) + "..." + did?.slice(-8)}</span>
+                  <button
+                    className="flex gap-2"
+                    onClick={handleCopy}
+                    type="button"
+                  >
                     <DocumentDuplicateIcon className="h-5 w-5" />
                     <div>
-                    {isCopied ? <p className="bg-gray-400 text-sm text-white p-1 rounded-3xl">Copied!</p>: ''}
+                      {isCopied ? (
+                        <p className="bg-gray-400 text-sm text-white p-1 rounded-3xl">
+                          Copied!
+                        </p>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </button>
                 </div>
-              </button>
+              </div>
             </nav>
 
             <div className="w-full mx-auto space-y-5">
@@ -206,17 +213,29 @@ const Patient = () => {
                   <div className="bg-white rounded-xl p-4 mb-8">
                     <h3 className="text-[20px] font-medium">DID</h3>
                     <div className="text-[#9e9e9e] inline-flex space-x-3 items-center justify-between">
-                      <span>{did.slice(8, 20) + "..." + did.slice(-8)}</span>
-                      <button className="flex gap-2" onClick={handleCopy} type="button">
+                      <span>{did?.slice(8, 20) + "..." + did?.slice(-8)}</span>
+                      <button
+                        className="flex gap-2"
+                        onClick={handleCopy}
+                        type="button"
+                      >
                         <DocumentDuplicateIcon className="h-5 w-5" />
-                        {isCopied ? <p className="bg-gray-400 text-sm text-white p-1 rounded-3xl">Copied!</p>: ''}
+                        {isCopied ? (
+                          <p className="bg-gray-400 text-sm text-white p-1 rounded-3xl">
+                            Copied!
+                          </p>
+                        ) : (
+                          ""
+                        )}
                       </button>
                     </div>
                   </div>
                   <div className="bg-white rounded-xl p-4 mb-8">
                     <h3 className="text-[20px] font-medium">Age</h3>
                     <div className="text-[#9e9e9e] inline-flex space-x-3 items-center justify-between">
-                      <span>{calculateAge(patientData.dob)} years</span>
+                      {calculateAge(patientData.dob) <= 1
+                        ? `${calculateAge(patientData.dob)} year old`
+                        : `${calculateAge(patientData.dob)} years old`}
                     </div>
                   </div>
                 </div>
@@ -354,10 +373,10 @@ const Patient = () => {
                                           4
                                         ) +
                                           " . . . " +
-                                          item?.formState?.doctorDid.slice(-5)}
+                                          item?.formState?.doctorDid?.slice(-5)}
                                       </div>
                                       <div>
-                                        <strong>Symptom(s) :{" "}</strong>
+                                        <strong>Symptom(s) : </strong>
                                         {item?.formState?.symptoms}
                                       </div>
                                     </div>
@@ -375,7 +394,9 @@ const Patient = () => {
                 <div className="bg-[#FFFFFF] rounded-xl p-4 w-1/3 flex flex-col gap-4 items-center">
                   <div className="inline-flex items-center place-content-center w-full mb-8 mt-8">
                     <h3 className="inline-flex space-x-4 items-center justify-between text-[20px]">
-                      <span className="font-semibold text-center">Emergency Contacts</span>
+                      <span className="font-semibold text-center">
+                        Emergency Contacts
+                      </span>
                     </h3>
                   </div>
                   <div>

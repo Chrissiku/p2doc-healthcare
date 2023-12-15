@@ -19,9 +19,7 @@ import { Web5Context } from "../utils/Web5Context";
 import IssueRecordModal from "../components/IssueRecord";
 
 const Doctor = () => {
-  const { web5, did, setUserType, protocolDefinition } = useContext(
-    Web5Context
-  );
+  const { web5, did, protocolDefinition, logout } = useContext(Web5Context);
   const [doctorData, setDoctorData] = useState([]);
   const [appointmentData, setAppointmentData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -105,10 +103,11 @@ const Doctor = () => {
         console.error("error fetching patient profile :", error);
       }
     };
-
-    fetchData();
-    fetchAppointment();
-  }, []);
+    if (web5 && did) {
+      fetchData();
+      fetchAppointment();
+    }
+  }, [did, web5]);
 
   const handleOpenModal = (data) => {
     setPatientData(data);
@@ -141,7 +140,6 @@ const Doctor = () => {
     return dateA - dateB;
   });
 
-
   return (
     <div className="w-full mx-auto bg-og-blue p-5">
       <div className="w-full mx-auto flex flex-row items-start justify-center space-x-5">
@@ -157,7 +155,7 @@ const Doctor = () => {
 
             <button
               type="button"
-              onClick={() => setUserType(null)}
+              onClick={() => logout()}
               className="p-3 hover:bg-[#fff9] rounded-lg text-white 
             hover:text-olive-green transition-all duration-300"
             >
@@ -235,7 +233,7 @@ const Doctor = () => {
                       <div className="bg-white rounded-xl p-4 ">
                         <h3 className="text-[20px] font-medium">DID</h3>
                         <div className="text-[#9e9e9e] inline-flex space-x-3 items-center justify-between">
-                          <span>{did.slice(0, 8) + "" + did.slice(-8)}</span>
+                          <span>{did?.slice(0, 8) + "" + did?.slice(-8)}</span>
                           <button type="button">
                             <DocumentDuplicateIcon className="h-5 w-5" />
                           </button>
@@ -415,7 +413,7 @@ const Doctor = () => {
                           </span>
                         </div>
                       </div>
-                  
+
                       <div className="flex flex-col items-start justify-between space-y-8">
                         <h5 className="text-white text-[20px]">
                           <span>Repeats patients</span>{" "}

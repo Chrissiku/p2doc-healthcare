@@ -30,9 +30,9 @@ export default function IssueRecordModal({
     setSymptoms(data.symptoms);
   }, [file, symptoms, did, data]);
 
-  console.log(formState);
+  // console.log(formState);
 
-  console.log(data.symptoms);
+  // console.log(data.symptoms);
 
   const handleCloseModal = () => {
     closeModal();
@@ -50,7 +50,7 @@ export default function IssueRecordModal({
           published: true,
         },
       });
-      console.log("Profile Created : ", { record, status });
+      // console.log("Profile Created : ", { record, status });
       await record.send(patientDid);
       console.log("record Sent");
     } catch (error) {
@@ -65,7 +65,7 @@ export default function IssueRecordModal({
     });
   };
 
-  console.log(file);
+  // console.log(file);
 
   return (
     <>

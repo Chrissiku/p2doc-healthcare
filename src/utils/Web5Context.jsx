@@ -10,10 +10,8 @@ const ContextProvider = ({ children }) => {
   const [web5, setWeb5] = useState(null);
   const [did, setDid] = useState(null);
   const [userType, setUserType] = useState(null);
-  const [medicalRecords, setMedicalRecords] = useState([]);
   const [doctorList, setDoctorList] = useState([]);
   const [loadingDoctor, setLoadingDoctor] = useState(true);
-  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const connectWeb5 = async () => {
@@ -26,8 +24,22 @@ const ContextProvider = ({ children }) => {
       }
     };
 
+    const storedUserType = localStorage.getItem("userType");
+    if (storedUserType) {
+      setUserType(storedUserType);
+    }
     connectWeb5();
   }, []);
+
+  const setUserTypeAndRedirect = (type) => {
+    localStorage.setItem("userType", type);
+    setUserType(type);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("userType");
+    setUserType("");
+  };
 
   const schema = {
     context: "https://schema.org/",
@@ -99,17 +111,16 @@ const ContextProvider = ({ children }) => {
   useEffect(() => {
     const installProtocol = async () => {
       try {
-        // console.log("Installing protocol ...");
+        console.log("Installing protocol ...");
         const { protocol, status } = await web5.dwn.protocols.configure({
           message: {
             definition: protocolDefinition,
           },
         });
-
         await protocol.send(did);
-        // console.log("Protocol installed and sent successfully . . .");
+        console.log("Protocol installed successfully.");
       } catch (error) {
-        console.error("Error Installing Protocol : ", error);
+        console.error("Error installing protocol: : ", error);
       }
     };
 
@@ -147,93 +158,21 @@ const ContextProvider = ({ children }) => {
       }
     };
 
-    const fetchUsers = async () => {
-      try {
-        const response = await web5.dwn.records.query({
-          from: publicDid,
-          message: {
-            filter: {
-              protocol: protocolDefinition.protocol,
-              schema: protocolDefinition.types.users.schema,
-            },
-          },
-        });
-
-        if (response.status.code === 200) {
-          const usersProfile = await Promise.all(
-            response.records.map(async (record) => {
-              const data = await record.data.json();
-              return {
-                ...data,
-                recordId: record.id,
-              };
-            })
-          );
-          // // console.log(usersProfile)
-          setUsers(usersProfile);
-          setLoadingDoctor(false);
-          return usersProfile;
-        } else {
-          console.error("error fetching users", response.status);
-          return [];
-        }
-      } catch (error) {
-        console.error("error fetching all users :", error);
-      }
-    };
-
     if (web5 && did) {
       installProtocol();
-      fetchUsers();
       fetchDoctors();
     }
   }, [web5, did]);
-
-  // console.log("user : ", users);
-
-  function doesDidExist(id, array) {
-    return array.some((item) => item.did === id);
-  }
-
-  const didExist = doesDidExist(did, users);
-
-  const saveUser = async (doctor, patient) => {
-    // console.log("Saving User ...");
-
-    try {
-      const userData = { did: did, doctor: doctor, patient: patient };
-      const { record, status } = await web5.dwn.records.write({
-        data: { ...userData },
-        message: {
-          protocol: protocolDefinition.protocol,
-          protocolPath: "users",
-          schema: protocolDefinition.types.users.schema,
-          recipient: publicDid,
-          published: true,
-        },
-      });
-      // console.log("user Created : ", { record, status });
-
-      // Send to public and private did
-      await record.send(publicDid);
-
-      // console.log("user sent");
-    } catch (error) {
-      console.error("Error Creating user user : ", error);
-    }
-    // }
-  };
 
   const value = {
     web5,
     did,
     userType,
-    setUserType,
-    saveUser,
     protocolDefinition,
     doctorList,
     loadingDoctor,
-    users,
+    setUserTypeAndRedirect,
+    logout,
   };
 
   return (
