@@ -41,7 +41,7 @@ export default function MyModal({ isOpen, closeModal, openModal }) {
             <div className="fixed inset-0 bg-[#000000d6]" />
           </Transition.Child>
 
-          <div className="fixed inset-0 overflow-y-auto">
+          <div className="fixed inset-0 overflow-y-auto w-full">
             <div className="flex min-h-full items-center justify-center p-10 text-center">
               <Transition.Child
                 as={Fragment}
@@ -53,8 +53,8 @@ export default function MyModal({ isOpen, closeModal, openModal }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className={`w-full h-auto border p-20 border-red-300 flex flex-col items-center 
-                  justify-center max-w-[600px] overflow-hidden rounded-2xl bg-white 
+                  className={`w-full h-auto border p-5 md:p-20 border-red-300 flex flex-col items-center 
+                  justify-center md:max-w-[600px] overflow-hidden rounded-2xl bg-white 
                   text-left align-middle shadow-xl transition-all duration-500 ease-in-out
                 ${
                   selectedType !== null ? "space-y-10 h-[700px]" : "space-y-10"
@@ -71,7 +71,7 @@ export default function MyModal({ isOpen, closeModal, openModal }) {
                     {selectedType === "doctor" ? (
                       <span>Doctor details</span>
                     ) : selectedType === "patient" ? (
-                      <span>Patient Details</span>
+                      <span className="text-3xl md:text-5xl">Patient Details</span>
                     ) : (
                       <span>Who are You ?</span>
                     )}

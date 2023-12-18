@@ -29,7 +29,7 @@ const Specialists = ({ specialistData }) => {
   // console.log(specialistData);
   return (
     <div className="my-[100px]">
-      <h2 className="ml-[84px] font-poppins font-semibold text-5xl">
+      <h2 className="text-3xl mx-8 md:mx-16 font-poppins font-semibold md:text-5xl">
         Our Specialists
       </h2>
       <div className="flex mx-auto justify-around mt-[70px]">

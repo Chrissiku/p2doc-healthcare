@@ -61,7 +61,7 @@ export default function PatientsForm({ userType, closeModal }) {
       <p className="text-lg font-normal text-black ">
         Enter your details below {userType}
       </p>
-      <form className="pt-[60px]" onSubmit={formSubmit}>
+      <form className="pt-[60px] w-full" onSubmit={formSubmit}>
         <div className="flex flex-col gap-[17px] pb-7">
           <label htmlFor="name" className="text-lg font-normal text-black ">
             Name
@@ -73,7 +73,7 @@ export default function PatientsForm({ userType, closeModal }) {
             name="name"
             value={formState.name}
             onChange={handleChange}
-            className="max-w-[410px] h-[53px] px-5 bg-white rounded-2xl border border-sky-400 "
+            className="max-w-[250px] md:max-w-[410px] h-[53px] px-5 bg-white rounded-2xl border border-sky-400 "
           />
         </div>
 
@@ -89,7 +89,7 @@ export default function PatientsForm({ userType, closeModal }) {
             onChange={handleChange}
             max={getTodayDate()}
             required
-            className="max-w-[410px] min-w-[400px] h-[53px] px-5 bg-white rounded-2xl border border-sky-400"
+            className="max-w-[250px] md:max-w-[410px] h-[53px] px-5 bg-white rounded-2xl border border-sky-400"
           />
         </div>
         <button

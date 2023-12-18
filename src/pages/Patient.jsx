@@ -207,7 +207,7 @@ const Patient = () => {
                   </span>
                 </h2>
               </div>
-              <div className="w-full inline-flex item-center justify-between gap-x-16">
+              <div className="w-full flex flex-col md:flex-row item-center justify-between gap-x-16">
                 {/* Patient info */}
                 <div className="bg-[#41CBE2] rounded-xl p-4 w-2/5 max-h-[250px]">
                   <div className="bg-white rounded-xl p-4 mb-8">
